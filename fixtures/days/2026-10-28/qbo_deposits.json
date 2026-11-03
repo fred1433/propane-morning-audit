@@ -16,10 +16,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 1389.33,
+        "TotalAmt": 831.19,
         "Line": [
           {
-            "Amount": 1431.75,
+            "Amount": 857.25,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -29,7 +29,7 @@
             }
           },
           {
-            "Amount": -42.42,
+            "Amount": -26.06,
             "DetailType": "DepositLineDetail",
             "Description": "Processor fees, batch OFC-1028",
             "DepositLineDetail": {
@@ -50,10 +50,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 2018.5,
+        "TotalAmt": 1315,
         "Line": [
           {
-            "Amount": 2018.5,
+            "Amount": 1315,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -73,10 +73,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 521.29,
+        "TotalAmt": 540.56,
         "Line": [
           {
-            "Amount": 521.29,
+            "Amount": 540.56,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -96,10 +96,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 723.64,
+        "TotalAmt": 479.41,
         "Line": [
           {
-            "Amount": 743.98,
+            "Amount": 492.97,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -109,7 +109,7 @@
             }
           },
           {
-            "Amount": -20.34,
+            "Amount": -13.56,
             "DetailType": "DepositLineDetail",
             "Description": "Processor fees, batch CTR-1028",
             "DepositLineDetail": {

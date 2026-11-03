@@ -1,29 +1,175 @@
 #source=customers;period=reference;generated=2026-10-25T20:00
 account,name,type,area,price_plan
-R-1012,Residence 1012,RES,Northeast,RES-STD
-R-1019,Residence 1019,RES,Northeast,RES-STD
-R-1027,Residence 1027,RES,Upper Valley,RES-STD
-R-1031,Residence 1031,RES,Upper Valley,RES-STD
+R-1001,Residence 1001,RES,Northeast,RES-STD
+R-1002,Residence 1002,RES,Socorro,RES-STD
+R-1003,Residence 1003,RES,Upper Valley,RES-STD
+R-1004,Residence 1004,RES,Horizon City,RES-STD
+R-1005,Residence 1005,RES,Canutillo,RES-STD
+R-1006,Residence 1006,RES,Clint,RES-STD
+R-1007,Residence 1007,RES,Westway,RES-STD
+R-1008,Residence 1008,RES,Fabens,RES-STD
+R-1009,Residence 1009,RES,Anthony,RES-STD
+R-1010,Residence 1010,RES,San Elizario,RES-STD
+R-1011,Residence 1011,RES,Vinton,RES-STD
+R-1012,Residence 1012,RES,Montana Vista,RES-STD
+R-1013,Residence 1013,RES,Lower Valley,RES-STD
+R-1014,Residence 1014,RES,Northeast,RES-STD
+R-1015,Residence 1015,RES,Socorro,RES-STD
+R-1016,Residence 1016,RES,Upper Valley,RES-STD
+R-1017,Residence 1017,RES,Horizon City,RES-STD
+R-1018,Residence 1018,RES,Canutillo,RES-STD
+R-1019,Residence 1019,RES,Clint,RES-STD
+R-1020,Residence 1020,RES,Westway,RES-STD
+R-1021,Residence 1021,RES,Fabens,RES-STD
+R-1022,Residence 1022,RES,Anthony,RES-STD
+R-1023,Residence 1023,RES,San Elizario,RES-STD
+R-1024,Residence 1024,RES,Vinton,RES-STD
+R-1025,Residence 1025,RES,Montana Vista,RES-STD
+R-1026,Residence 1026,RES,Lower Valley,RES-STD
+R-1027,Residence 1027,RES,Northeast,RES-STD
+R-1028,Residence 1028,RES,Socorro,RES-STD
+R-1029,Residence 1029,RES,Upper Valley,RES-STD
+R-1030,Residence 1030,RES,Horizon City,RES-STD
+R-1031,Residence 1031,RES,Canutillo,RES-STD
+R-1032,Residence 1032,RES,Clint,RES-STD
+R-1033,Residence 1033,RES,Westway,RES-STD
+R-1034,Residence 1034,RES,Fabens,RES-STD
+R-1035,Residence 1035,RES,Anthony,RES-STD
+R-1036,Residence 1036,RES,San Elizario,RES-STD
+R-1037,Residence 1037,RES,Vinton,RES-STD
+R-1038,Residence 1038,RES,Montana Vista,RES-STD
+R-1039,Residence 1039,RES,Lower Valley,RES-STD
+R-1040,Residence 1040,RES,Northeast,RES-STD
+R-1041,Residence 1041,RES,Socorro,RES-STD
+R-1042,Residence 1042,RES,Upper Valley,RES-STD
+R-1043,Residence 1043,RES,Horizon City,RES-STD
 R-1044,Residence 1044,RES,Canutillo,RES-STD
-R-1046,Residence 1046,RES,Canutillo,RES-STD
-R-1053,Residence 1053,RES,Westway,RES-STD
-R-1058,Residence 1058,RES,Anthony,RES-STD
+R-1045,Residence 1045,RES,Clint,RES-STD
+R-1046,Residence 1046,RES,Westway,RES-STD
+R-1047,Residence 1047,RES,Fabens,RES-STD
+R-1048,Residence 1048,RES,Anthony,RES-STD
+R-1049,Residence 1049,RES,San Elizario,RES-STD
+R-1050,Residence 1050,RES,Vinton,RES-STD
+R-1051,Residence 1051,RES,Montana Vista,RES-STD
+R-1052,Residence 1052,RES,Lower Valley,RES-STD
+R-1053,Residence 1053,RES,Northeast,RES-STD
+R-1054,Residence 1054,RES,Socorro,RES-STD
+R-1055,Residence 1055,RES,Upper Valley,RES-STD
+R-1056,Residence 1056,RES,Horizon City,RES-STD
+R-1057,Residence 1057,RES,Canutillo,RES-STD
+R-1058,Residence 1058,RES,Clint,RES-STD
+R-1059,Residence 1059,RES,Westway,RES-STD
+R-1060,Residence 1060,RES,Fabens,RES-STD
 R-1061,Residence 1061,RES,Anthony,RES-STD
-R-1067,Residence 1067,RES,Vinton,RES-STD
-R-1072,Residence 1072,RES,Lower Valley,RES-STD
-R-1075,Residence 1075,RES,Lower Valley,RES-STD
-R-1079,Residence 1079,RES,Socorro,RES-STD
-R-1083,Residence 1083,RES,Socorro,RES-STD
-R-1088,Residence 1088,RES,Horizon City,RES-STD
-R-1091,Residence 1091,RES,Horizon City,RES-STD
-R-1096,Residence 1096,RES,Clint,RES-STD
-R-1102,Residence 1102,RES,Clint,RES-STD
-R-1108,Residence 1108,RES,Fabens,RES-STD
-R-1113,Residence 1113,RES,Fabens,RES-STD
-R-1117,Residence 1117,RES,San Elizario,RES-STD
-R-1123,Residence 1123,RES,San Elizario,RES-STD
+R-1062,Residence 1062,RES,San Elizario,RES-STD
+R-1063,Residence 1063,RES,Vinton,RES-STD
+R-1064,Residence 1064,RES,Montana Vista,RES-STD
+R-1065,Residence 1065,RES,Lower Valley,RES-STD
+R-1066,Residence 1066,RES,Northeast,RES-STD
+R-1067,Residence 1067,RES,Socorro,RES-STD
+R-1068,Residence 1068,RES,Upper Valley,RES-STD
+R-1069,Residence 1069,RES,Horizon City,RES-STD
+R-1070,Residence 1070,RES,Canutillo,RES-STD
+R-1071,Residence 1071,RES,Clint,RES-STD
+R-1072,Residence 1072,RES,Westway,RES-STD
+R-1073,Residence 1073,RES,Fabens,RES-STD
+R-1074,Residence 1074,RES,Anthony,RES-STD
+R-1075,Residence 1075,RES,San Elizario,RES-STD
+R-1076,Residence 1076,RES,Vinton,RES-STD
+R-1077,Residence 1077,RES,Montana Vista,RES-STD
+R-1078,Residence 1078,RES,Lower Valley,RES-STD
+R-1079,Residence 1079,RES,Northeast,RES-STD
+R-1080,Residence 1080,RES,Socorro,RES-STD
+R-1081,Residence 1081,RES,Upper Valley,RES-STD
+R-1082,Residence 1082,RES,Horizon City,RES-STD
+R-1083,Residence 1083,RES,Canutillo,RES-STD
+R-1084,Residence 1084,RES,Clint,RES-STD
+R-1085,Residence 1085,RES,Westway,RES-STD
+R-1086,Residence 1086,RES,Fabens,RES-STD
+R-1087,Residence 1087,RES,Anthony,RES-STD
+R-1088,Residence 1088,RES,San Elizario,RES-STD
+R-1089,Residence 1089,RES,Vinton,RES-STD
+R-1090,Residence 1090,RES,Montana Vista,RES-STD
+R-1091,Residence 1091,RES,Lower Valley,RES-STD
+R-1092,Residence 1092,RES,Northeast,RES-STD
+R-1093,Residence 1093,RES,Socorro,RES-STD
+R-1094,Residence 1094,RES,Upper Valley,RES-STD
+R-1095,Residence 1095,RES,Horizon City,RES-STD
+R-1096,Residence 1096,RES,Canutillo,RES-STD
+R-1097,Residence 1097,RES,Clint,RES-STD
+R-1098,Residence 1098,RES,Westway,RES-STD
+R-1099,Residence 1099,RES,Fabens,RES-STD
+R-1100,Residence 1100,RES,Anthony,RES-STD
+R-1101,Residence 1101,RES,San Elizario,RES-STD
+R-1102,Residence 1102,RES,Vinton,RES-STD
+R-1103,Residence 1103,RES,Montana Vista,RES-STD
+R-1104,Residence 1104,RES,Lower Valley,RES-STD
+R-1105,Residence 1105,RES,Northeast,RES-STD
+R-1106,Residence 1106,RES,Socorro,RES-STD
+R-1107,Residence 1107,RES,Upper Valley,RES-STD
+R-1108,Residence 1108,RES,Horizon City,RES-STD
+R-1109,Residence 1109,RES,Canutillo,RES-STD
+R-1110,Residence 1110,RES,Clint,RES-STD
+R-1111,Residence 1111,RES,Westway,RES-STD
+R-1112,Residence 1112,RES,Fabens,RES-STD
+R-1113,Residence 1113,RES,Anthony,RES-STD
+R-1114,Residence 1114,RES,San Elizario,RES-STD
+R-1115,Residence 1115,RES,Vinton,RES-STD
+R-1116,Residence 1116,RES,Montana Vista,RES-STD
+R-1117,Residence 1117,RES,Lower Valley,RES-STD
+R-1118,Residence 1118,RES,Northeast,RES-STD
+R-1119,Residence 1119,RES,Socorro,RES-STD
+R-1120,Residence 1120,RES,Upper Valley,RES-STD
+R-1121,Residence 1121,RES,Horizon City,RES-STD
+R-1122,Residence 1122,RES,Canutillo,RES-STD
+R-1123,Residence 1123,RES,Clint,RES-STD
+R-1124,Residence 1124,RES,Westway,RES-STD
+R-1125,Residence 1125,RES,Fabens,RES-STD
+R-1126,Residence 1126,RES,Anthony,RES-STD
+R-1127,Residence 1127,RES,San Elizario,RES-STD
+R-1128,Residence 1128,RES,Vinton,RES-STD
 R-1129,Residence 1129,RES,Montana Vista,RES-STD
-R-1137,Residence 1137,RES,Montana Vista,RES-STD
+R-1130,Residence 1130,RES,Lower Valley,RES-STD
+R-1131,Residence 1131,RES,Northeast,RES-STD
+R-1132,Residence 1132,RES,Socorro,RES-STD
+R-1133,Residence 1133,RES,Upper Valley,RES-STD
+R-1134,Residence 1134,RES,Horizon City,RES-STD
+R-1135,Residence 1135,RES,Canutillo,RES-STD
+R-1136,Residence 1136,RES,Clint,RES-STD
+R-1137,Residence 1137,RES,Westway,RES-STD
+R-1138,Residence 1138,RES,Fabens,RES-STD
+R-1139,Residence 1139,RES,Anthony,RES-STD
+R-1140,Residence 1140,RES,San Elizario,RES-STD
+R-1141,Residence 1141,RES,Vinton,RES-STD
+R-1142,Residence 1142,RES,Montana Vista,RES-STD
+R-1143,Residence 1143,RES,Lower Valley,RES-STD
+R-1144,Residence 1144,RES,Northeast,RES-STD
+R-1145,Residence 1145,RES,Socorro,RES-STD
+R-1146,Residence 1146,RES,Upper Valley,RES-STD
+R-1147,Residence 1147,RES,Horizon City,RES-STD
+R-1148,Residence 1148,RES,Canutillo,RES-STD
+R-1149,Residence 1149,RES,Clint,RES-STD
+R-1150,Residence 1150,RES,Westway,RES-STD
+R-1151,Residence 1151,RES,Fabens,RES-STD
+R-1152,Residence 1152,RES,Anthony,RES-STD
+R-1153,Residence 1153,RES,San Elizario,RES-STD
+R-1154,Residence 1154,RES,Vinton,RES-STD
+R-1155,Residence 1155,RES,Montana Vista,RES-STD
+R-1156,Residence 1156,RES,Lower Valley,RES-STD
+R-1157,Residence 1157,RES,Northeast,RES-STD
+R-1158,Residence 1158,RES,Socorro,RES-STD
+R-1159,Residence 1159,RES,Upper Valley,RES-STD
+R-1160,Residence 1160,RES,Horizon City,RES-STD
+R-1161,Residence 1161,RES,Canutillo,RES-STD
+R-1162,Residence 1162,RES,Clint,RES-STD
+R-1163,Residence 1163,RES,Westway,RES-STD
+R-1164,Residence 1164,RES,Fabens,RES-STD
+R-1165,Residence 1165,RES,Anthony,RES-STD
+R-1166,Residence 1166,RES,San Elizario,RES-STD
+R-1167,Residence 1167,RES,Vinton,RES-STD
+R-1168,Residence 1168,RES,Montana Vista,RES-STD
+R-1169,Residence 1169,RES,Lower Valley,RES-STD
+R-1170,Residence 1170,RES,Northeast,RES-STD
 C-2201,Tres Cruces Bakery,COM,El Paso,COM-A
 C-2203,Bajada Auto Body,COM,El Paso,COM-A
 C-2204,Agave Row Kitchen,COM,El Paso,COM-C
@@ -34,6 +180,12 @@ C-2208,Hueco Rock Event Hall,COM,El Paso,COM-C
 C-2209,Coyote Gulch Car Wash,COM,El Paso,COM-B
 C-2210,Ocotillo Pallet Works,COM,El Paso,COM-D
 C-2212,Loma Verde Laundry,COM,El Paso,COM-B
+C-2213,Arroyo Lindo Tire Shop,COM,El Paso,COM-B
+C-2214,Pecan Row Dryer Shed,COM,El Paso,COM-C
+C-2215,Saguaro Lane Tamales,COM,El Paso,COM-A
+C-2216,Mesquite Flat Forklift Yard,COM,El Paso,COM-D
+C-2217,Cielo Azul Laundromat,COM,El Paso,COM-B
+C-2218,Tecolote Print Works,COM,El Paso,COM-A
 D-03,Tornillo Road Fuel Stop,DEALER,El Paso County,
 D-07,Palo Blanco Grocery,DEALER,El Paso County,
 D-11,Cholla Corner Store,DEALER,El Paso County,

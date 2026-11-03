@@ -48,7 +48,7 @@ test('changing a source amount changes the result', () => {
   const d = run(prepare(raw), '2026-10-29').dossiers.find((x) => x.rule === 'DEPOSIT_TO_QBO' && x.scope === 'CD-1029-CARD');
   assert.equal(d.status, 'flag'); assert.equal(d.qualification, 'accounting_difference');
   // the missing ticket weighs 250.0 gal instead of 240.0: the estimate follows (250.0 x 2.949)
-  const raw2 = edit(rawFiles(), '2026-10-29/meter_register.csv', (t) => t.replace(/B-12,TICKET,5536,11:22,R-1088,240\.7,240\.0/, 'B-12,TICKET,5536,11:22,R-1088,250.7,250.0'));
+  const raw2 = edit(rawFiles(), '2026-10-29/meter_register.csv', (t) => t.replace(/(B-12,TICKET,5536,[^,]+,R-1088,)[\d.]+,240\.0/, '$1250.7,250.0'));
   const r2 = run(prepare(raw2), '2026-10-29');
   assert.equal(r2.dossiers.find((x) => x.rule === 'TICKET_POSTED').amount, 73725);
   assert.equal(r2.ledger.find((l) => l.rule === 'METER_BALANCE').state, 'flag', 'the totalizer no longer matches the tickets');

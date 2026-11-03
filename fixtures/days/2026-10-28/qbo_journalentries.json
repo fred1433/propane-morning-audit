@@ -15,7 +15,7 @@
         "Line": [
           {
             "Id": "0",
-            "Amount": 21098,
+            "Amount": 19372.32,
             "DetailType": "JournalEntryLineDetail",
             "JournalEntryLineDetail": {
               "PostingType": "Debit",
@@ -27,7 +27,7 @@
           },
           {
             "Id": "1",
-            "Amount": 10974.5,
+            "Amount": 15089.38,
             "DetailType": "JournalEntryLineDetail",
             "JournalEntryLineDetail": {
               "PostingType": "Credit",
@@ -39,7 +39,7 @@
           },
           {
             "Id": "2",
-            "Amount": 10123.5,
+            "Amount": 4282.94,
             "DetailType": "JournalEntryLineDetail",
             "JournalEntryLineDetail": {
               "PostingType": "Credit",

@@ -40,6 +40,11 @@ function sheet(r) {
     const ds = r.dossiers.filter((d) => d.column === key);
     return `<div class="col col-${key}"><h3>${title} <span class="n">${ds.length}</span></h3>${ds.length ? `<ul>${ds.map((d) => `<li><button class="dossier${d.id === state.sel ? ' is-sel' : ''}" data-id="${d.id}" aria-controls="records"><span class="letter">${d.id}</span><span class="hl">${esc(d.headline)}</span><span class="q q-${d.qualification}">${QLABEL[d.qualification]}${qualified(d) ? ` <b>${esc(qualified(d))}</b>` : ''}</span></button></li>`).join('')}</ul>` : `<p class="empty">${empty}</p>`}</div>`;
   };
+  const order = ['person', 'explained', 'cannot'].map((k) => r.dossiers.filter((d) => d.column === k));
+  const mob = [...order.map((l) => l[0]).filter(Boolean), ...order.flatMap((l) => l.slice(1))];
+  const COLNAME = { person: 'Needs a person', cannot: 'Cannot conclude yet', explained: 'Explained by a record' };
+  const item = (d) => `<button class="dossier${d.id === state.sel ? ' is-sel' : ''}" data-id="${d.id}" aria-controls="records"><span class="letter">${d.id}</span><span class="hl">${esc(d.headline)}</span><span class="q q-${d.qualification}">${QLABEL[d.qualification]}${qualified(d) ? ` <b>${esc(qualified(d))}</b>` : ''}</span></button>`;
+  const lead = r.summary[0].text;
   return `
   <div class="sheet-head">
     <div class="co"><span class="co-name">Sample Propane Co.</span><span class="co-sub">El Paso, Texas. A fictional distributor.</span></div>
@@ -55,6 +60,7 @@ function sheet(r) {
         <button role="radio" data-pos="received" aria-checked="${r.posClose === 'received'}">${thuLate ? 'Received at 09:40' : 'Received'}</button>
         <button role="radio" data-pos="missing" aria-checked="${r.posClose === 'missing'}">Missing</button>
       </div>
+      <span class="print-only val">${r.posClose === 'missing' ? 'Missing' : 'Received'}</span>
       <span class="hint">${thuLate ? (r.posClose === 'missing' ? 'as it stood at 06:00' : 'the run is repeated with it') : 'take it away to see the report hold back'}</span></div>
   </div>
   <div class="kpis">${r.kpis.map((k) => `<div class="kpi kpi-${k.status}"><span class="lbl">${k.label}</span><span class="val">${esc(k.value)}${k.status === 'partial' ? ' <em>partial</em>' : ''}</span><span class="hint">${esc(k.basis)}</span></div>`).join('')}</div>
@@ -63,12 +69,14 @@ function sheet(r) {
     ${col('cannot', 'Cannot conclude yet', 'Nothing held back: every source arrived usable.')}
     ${col('explained', 'Explained by a record', 'No difference needed explaining.')}
   </div>
-  <div class="summary">
-    <h2>The same morning, in sentences</h2>
-    <ol>${r.summary.map((s) => `<li>${esc(s.text)}${s.refs[0] !== 'R' ? ` <a class="tag" href="#records" data-id="${s.refs[0]}" aria-label="Open dossier ${s.refs[0]}">${s.refs[0]}</a>` : ''}</li>`).join('')}</ol>
-    <p class="trace">${v.ok ? `Sentences written by the code from the dossiers. Every figure and reference in them is checked against its dossier: ${v.traced} of ${v.traced} traced.` : `Summary check failed: ${esc(v.errors[0])}`}</p>
-  </div>
-  <details class="ledger"><summary>All ${r.counts.rules} rules run for this day</summary>
+  <div class="mlist"><p class="m-lead">${esc(lead)}</p><ul>${mob.map((d) => `<li class="m-${d.column}"><span class="m-col">${COLNAME[d.column]}</span>${item(d)}</li>`).join('')}</ul></div>
+  <p class="scope-note">Gross margin is not calculated: this sample has no cost method. Tax amounts are copied from the records.</p>
+  <details class="summary note"><summary><span class="note-t">Morning note</span> ${esc(lead)}</summary>
+    <ol>${r.summary.slice(1).map((s) => `<li>${esc(s.text)} <a class="tag" href="#records" data-id="${s.refs[0]}" aria-label="Open dossier ${s.refs[0]}">${s.refs[0]}</a></li>`).join('')}</ol>
+    <p class="trace">${v.ok ? `Written by the code from fixed templates. Reference check: each of the ${v.traced} figures, identifiers and names in these sentences belongs to the dossier it cites. It checks references, not the meaning of a sentence.` : `Reference check failed: ${esc(v.errors[0])}`}</p>
+    <p class="claude">In production, Claude would write this note from the dossiers and answer questions about any of them; the figures and the conclusions stay with the code. This page calls no model.</p>
+  </details>
+  <details class="ledger"><summary>${r.counts.rules} checks for this day: ${r.counts.completed} completed${r.counts.held ? `, ${r.counts.held} held back` : ''}</summary>
     <div class="tscroll"><table><thead><tr><th>Rule</th><th>Checked</th><th>Result</th><th>Notes</th></tr></thead><tbody>
     ${r.ledger.map((l) => `<tr class="st-${l.state.replace(/ /g, '-')}"><td><span class="rid">${l.rule}</span><br>${esc(l.title)}</td><td>${l.state === 'not applicable' ? '' : l.checked}</td><td><span class="res">${{ pass: 'passed', flag: 'needs a person', pending: 'pending', explained: 'explained', suspended: 'suspended', 'not applicable': 'no records today' }[l.state]}</span></td><td>${(l.notes || []).map(esc).join('<br>')}</td></tr>`).join('')}
     </tbody></table></div></details>
@@ -105,7 +113,7 @@ function records(r) {
     <div class="chips" role="tablist" aria-label="Dossiers">${r.dossiers.map((x) => `<button role="tab" class="chip c-${x.column}${x.id === d.id ? ' is-on' : ''}" aria-selected="${x.id === d.id}" data-id="${x.id}">${x.id}</button>`).join('')}</div>
   </div>
   <div class="d-title d-${d.column}">
-    <p class="d-hl">${esc(d.headline)}</p>
+    <p class="d-hl">${esc((r.summary.find((x) => x.refs[0] === d.id) || {}).text || d.headline)}</p>
     <p class="d-q"><span class="q q-${d.qualification}">${QLABEL[d.qualification]}${qualified(d) ? ` <b>${esc(qualified(d))}</b>` : ''}</span>${d.action ? `<span class="act">${esc(d.action)}</span>` : ''}</p>
     ${d.quantity ? `<p class="qty">Quantity: <b>${esc(d.quantity.value)}</b>, ${esc(d.quantity.base)}, from the ${esc(d.quantity.origin)}, ${esc(d.quantity.at)}. File ${esc(d.quantity.source)}.</p>` : ''}
     ${d.note ? `<p class="qty">${esc(d.note)}</p>` : ''}
@@ -128,7 +136,7 @@ function records(r) {
 
 function journal() {
   const j = JOURNAL;
-  $('#journal').innerHTML = `<table class="journal"><tbody>${j.runs.map((r) => `<tr class="${r.started ? '' : 'miss'}"><td>${fmtDay(r.for)}</td><td>${r.started ? r.started.slice(11, 16) : 'none'}</td><td>${esc(r.result)}</td></tr>`).join('')}</tbody></table>
+  $('#journal').innerHTML = `<table class="journal"><thead><tr><th>Business day</th><th>Run at</th><th>Result</th></tr></thead><tbody>${j.runs.map((r) => `<tr class="${r.started ? '' : 'miss'}"><td>${fmtDay(r.for)}</td><td>${r.started ? fmtStamp(r.started) : `none by ${esc(fmtStamp(j.alert.sent))}`}</td><td>${esc(r.result)}</td></tr>`).join('')}</tbody></table>
   <div class="alert"><p class="a-head"><span>Alert, ${esc(fmtStamp(j.alert.sent))}</span><span>sent by ${esc(j.alert.by)}</span></p><p class="a-subj">${esc(j.alert.subject)}</p><p>${esc(j.alert.body)}</p></div>`;
 }
 

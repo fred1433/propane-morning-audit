@@ -1,4 +1,4 @@
 #source=cargas_deposits;period=2026-10-29;generated=2026-10-29T21:00
 deposit_id,date,method,payments,amount
 CD-1029-CARD,2026-10-29,CARD,4,1000.00
-CD-1029-CHK,2026-10-29,CHECK,3,1489.00
+CD-1029-CHK,2026-10-29,CHECK,2,1524.00

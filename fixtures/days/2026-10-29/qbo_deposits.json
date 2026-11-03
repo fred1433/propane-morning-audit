@@ -50,10 +50,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 1489,
+        "TotalAmt": 1524,
         "Line": [
           {
-            "Amount": 1489,
+            "Amount": 1524,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -73,10 +73,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 504.7,
+        "TotalAmt": 671.94,
         "Line": [
           {
-            "Amount": 504.7,
+            "Amount": 671.94,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -96,10 +96,10 @@
           "value": "1010",
           "name": "Operating bank account"
         },
-        "TotalAmt": 621.78,
+        "TotalAmt": 740.85,
         "Line": [
           {
-            "Amount": 639.29,
+            "Amount": 761.66,
             "DetailType": "DepositLineDetail",
             "DepositLineDetail": {
               "AccountRef": {
@@ -109,7 +109,7 @@
             }
           },
           {
-            "Amount": -17.51,
+            "Amount": -20.81,
             "DetailType": "DepositLineDetail",
             "Description": "Processor fees, batch CTR-1029",
             "DepositLineDetail": {

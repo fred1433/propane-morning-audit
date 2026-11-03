@@ -38,20 +38,20 @@
     {
       "account": "1100",
       "name": "Accounts Receivable (A/R)",
-      "debit": "21098.00",
+      "debit": "19372.32",
       "credit": "0.00"
     },
     {
       "account": "4010",
       "name": "Residential bulk propane sales",
       "debit": "0.00",
-      "credit": "10974.50"
+      "credit": "15089.38"
     },
     {
       "account": "4020",
       "name": "Commercial bulk propane sales",
       "debit": "0.00",
-      "credit": "10123.50"
+      "credit": "4282.94"
     }
   ]
 }

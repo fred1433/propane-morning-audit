@@ -33,3 +33,14 @@ for (const [name, refs, text] of wrong) {
     assert.equal(v.ok, false, text);
   });
 }
+
+test('refused: a business name from another dossier', () => {
+  const lease = thu.dossiers.find((d) => d.rule === 'LEASE_BILLED');
+  const v = verifySummary([{ refs: [lease.id], text: 'Lease L-0112 (tank T-5042, Palo Blanco Grocery) has no charge for the $25.00 rent due Thu 1 Oct: billing to verify.' }], thu);
+  assert.equal(v.ok, false);
+});
+test('accepted although wrong: two figures swapped inside one sentence (the limit of a reference check)', () => {
+  const dep = thu.dossiers.find((d) => d.rule === 'DEPOSIT_TO_QBO');
+  const v = verifySummary([{ refs: [dep.id], text: 'Card deposit CD-1029-CARD: $970.00 in Cargas and $1,000.00 booked in QuickBooks; the $30.00 difference is the fee on settlement OFC-1029: explained.' }], thu);
+  assert.equal(v.ok, true, 'if this starts failing, the README and the page can claim more');
+});

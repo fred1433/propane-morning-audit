@@ -22,6 +22,14 @@
       "received_at": "2026-10-25T20:00"
     },
     {
+      "path": "monthly/2026-09/cargas_lease_charges.csv",
+      "received_at": "2026-09-30T21:05"
+    },
+    {
+      "path": "reference/trucks.csv",
+      "received_at": "2026-10-25T20:00"
+    },
+    {
       "path": "days/2026-10-26/meter_register.csv",
       "received_at": "2026-10-26T18:40"
     },

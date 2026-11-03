@@ -1,9 +1,8 @@
 #source=processor_settlement;period=2026-10-26;generated=2026-10-27T04:25
 record,batch,ref,gross,fee,adjustment,net
-BATCH,OFC-1026,"office terminal, 4 payments",1708.00,50.73,0.00,1657.27
-ITEM,OFC-1026,P-40211,446.50,,,
-ITEM,OFC-1026,P-40212,271.00,,,
-ITEM,OFC-1026,P-40213,481.00,,,
-ITEM,OFC-1026,P-40214,509.50,,,
-BATCH,CTR-1026,counter terminal R1,1134.96,30.89,0.00,1104.07
-ITEM,CTR-1026,Z-1026,1134.96,,,
+BATCH,OFC-1026,"office terminal, 3 payments",1165.75,34.71,0.00,1131.04
+ITEM,OFC-1026,P-40211,312.50,,,
+ITEM,OFC-1026,P-40212,453.00,,,
+ITEM,OFC-1026,P-40213,400.25,,,
+BATCH,CTR-1026,counter terminal R1,549.11,15.08,0.00,534.03
+ITEM,CTR-1026,Z-1026,549.11,,,

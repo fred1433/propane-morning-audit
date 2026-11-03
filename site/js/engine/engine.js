@@ -4,7 +4,7 @@
 import { parseFile } from './parse.js';
 import { RULES, DATA_RULES } from './rules.js';
 import { buildSummary } from './summary.js';
-import { tenths, cents, fmtUsd, fmtGal, fmtDay, fmtStamp, addDays, sum } from './util.js';
+import { tenths, cents, fmtUsd, fmtGal, fmtDay, fmtStamp, addDays, sum, DataError } from './util.js';
 
 export const SOURCES = {
   meter_register: { label: 'Truck meter registers', system: 'Truck meters', kind: 'daily' },
@@ -30,6 +30,7 @@ export const SOURCES = {
   prebuy_contracts: { label: 'PreBuy contracts', system: 'Cargas Energy', kind: 'reference' },
   approvals: { label: 'Price approvals', system: 'Office', kind: 'reference' },
   leases: { label: 'Tank leases', system: 'Office', kind: 'reference' },
+  trucks: { label: 'Trucks', system: 'Office', kind: 'reference' },
 };
 
 export const QUAL = {
@@ -100,14 +101,24 @@ export function runDay(files, day, opts = {}) {
     if (pick.control && pick.control.announced !== pick.control.received) { status[name] = { status: 'incomplete', detail: `${pick.control.received} of ${pick.control.announced} records` }; continue; }
     status[name] = def.trailer ? trailerCheck(pick, name) : { status: 'ok' };
   }
-  // the POS export is complete only against its register close
+  // the POS export is complete only against its register close: period, receipts and amounts
   const ps = chosen.pos_sales; const pc = status.pos_close.status === 'ok' ? chosen.pos_close.rows[0] : null;
   if (ps && status.pos_sales.status !== 'stale') {
     const to = ps.meta.to; const from = ps.meta.from;
-    if (!pc) status.pos_sales = { status: 'unverified', detail: `export covers ${from} to ${to}; no register close to show the day is complete`, from, to };
-    else if (to < pc.closed) status.pos_sales = { status: 'incomplete', detail: `export ends ${to}, register closed ${pc.closed}`, from, to };
-    else if (status.pos_sales.status === 'ok' && new Set(ps.rows.map((r) => r.receipt)).size !== Number(pc.receipts)) status.pos_sales = { status: 'incomplete', detail: 'receipt count differs from the register close', from, to };
+    const sales = ps.rows.filter((r) => r.type === 'SALE'); const poa = ps.rows.filter((r) => r.type === 'PAYMENT_ON_ACCOUNT');
+    const byTender = (t) => sum(ps.rows.filter((r) => r.tender === t), (r) => cents(r.amount) + cents(r.tax));
+    const diffs = pc ? [['sales before tax', sum(sales, (r) => cents(r.amount)), cents(pc.sales_total)], ['tax', sum(sales, (r) => cents(r.tax)), cents(pc.tax_total)], ['payments on account', sum(poa, (r) => cents(r.amount)), cents(pc.payments_on_account)], ['cash', byTender('CASH'), cents(pc.tender_cash)], ['card', byTender('CARD'), cents(pc.tender_card)]].filter(([, a, b]) => a !== b) : [];
+    if (status.pos_sales.status === 'incomplete') status.pos_sales = { ...status.pos_sales, from, to, reason: `the export does not match its own trailer (${status.pos_sales.detail})` };
+    else if (!pc) status.pos_sales = { status: 'unverified', detail: `export covers ${from} to ${to}; no register close to show the day is complete`, from, to, reason: 'no register close came with it' };
+    else if (to < pc.closed) status.pos_sales = { status: 'incomplete', detail: `export ends ${to}, register closed ${pc.closed}`, from, to, reason: `the export stops at ${to} while the register closed at ${pc.closed}` };
+    else if (new Set(ps.rows.map((r) => r.receipt)).size !== Number(pc.receipts)) status.pos_sales = { status: 'incomplete', detail: 'receipt count differs from the register close', from, to, reason: `the export holds ${new Set(ps.rows.map((r) => r.receipt)).size} receipts and the close counts ${pc.receipts}` };
+    else if (diffs.length) status.pos_sales = { status: 'incomplete', detail: `amounts differ from the register close: ${diffs.map(([k, a, b]) => `${k} ${fmtUsd(a)} in the export, ${fmtUsd(b)} on the close`).join('; ')}`, from, to, reason: `its ${diffs[0][0]} (${fmtUsd(diffs[0][1])}) differ from the close (${fmtUsd(diffs[0][2])})` };
     else status.pos_sales = { ...status.pos_sales, from, to };
+  } else if (ps) status.pos_sales = { ...status.pos_sales, reason: `the only export received covers ${fmtDay(ps.meta.period)}` };
+  // an event source is optional only when neither half of the record exists
+  for (const rule of RULES.filter((r) => r.optional)) {
+    const present = rule.sources.filter((n) => status[n].status !== 'none');
+    if (present.length && present.length < rule.sources.length) for (const n of rule.sources) if (status[n].status === 'none') status[n] = { status: 'missing', detail: `not received, while ${present.map((x) => SOURCES[x].label.toLowerCase()).join(', ')} came in` };
   }
   for (const [name, s] of Object.entries(status)) if (chosen[name]) { s.file = chosen[name].path; s.received_at = chosen[name].received_at; s.period = chosen[name].meta.period; }
 
@@ -121,6 +132,7 @@ export function runDay(files, day, opts = {}) {
     customer: (a) => custMap.get(a),
     register: (date) => (date === day ? chosen.meter_register : [...usable].reverse().find((f) => f.meta.source === 'meter_register' && f.meta.period === date)),
     previous: (n) => [...usable].reverse().find((f) => f.meta.source === n && f.meta.period < day) || null,
+    monthFile: (n, ym) => [...usable].reverse().find((f) => f.meta.source === n && f.meta.period === ym) || null,
   };
 
   // 3. run the rules
@@ -131,7 +143,9 @@ export function runDay(files, day, opts = {}) {
     const blocked = st.filter(([, s]) => s !== 'ok').map(([n]) => n);
     if (blocked.length) { lines.push({ rule: rule.id, scope: 'all', status: 'suspended', cause: 'source', blockedBy: blocked }); continue; }
     let out;
-    try { out = rule.run(ctx); } catch (e) { out = [{ scope: 'all', status: 'suspended', cause: 'error', headline: `${rule.title}: could not run (${e.message})` }]; }
+    try { out = rule.run(ctx); } catch (e) {
+      out = [{ scope: 'all', status: 'suspended', cause: e instanceof DataError ? 'data' : 'error', qualification: 'not_concluded', headline: `${rule.title}: cannot conclude, ${e.message}`, fields: { reason: e.message }, calc: [['Value needed', e.message, true]] }];
+    }
     for (const l of out) lines.push({ rule: rule.id, ...l });
   }
 
@@ -144,15 +158,16 @@ export function runDay(files, day, opts = {}) {
     const stopped = lines.filter((l) => l.status === 'suspended' && l.cause === 'source' && l.blockedBy.some((b) => names.includes(b))).map((l) => l.rule);
     const f = (n) => chosen[n];
     if (fam === 'pos') {
-      const sales = f('pos_sales'); const partial = sales ? sum(sales.rows.filter((r) => r.type === 'SALE'), (r) => cents(r.amount)) : 0;
-      const close = status.pos_close; const st = status.pos_sales;
-      const reason = close.status !== 'ok' ? `no register close${posClose === 'missing' && !closeOnTime ? ' received by 06:00' : ''}` : st.detail;
+      const sales = f('pos_sales'); const close = status.pos_close; const st = status.pos_sales;
+      const usableSales = sales && st.status === 'unverified' && sales.meta.period === day;
+      const partial = usableSales ? sum(sales.rows.filter((r) => r.type === 'SALE'), (r) => cents(r.amount)) : null;
+      const reason = st.reason || (st.status === 'missing' ? 'no export was received for the day' : close.status !== 'ok' ? 'no register close came with it' : st.detail);
       return {
         rule: 'POS_COMPLETENESS', scope: 'pos', status: 'suspended', cause: 'data', qualification: 'not_concluded', suspends: stopped,
-        headline: sales ? `POS export covers ${st.from} to ${st.to}, ${reason}: counter totals partial` : 'No POS export received: counter totals unavailable',
-        action: 'Get the register close (or re-send the end-of-day export); the run picks it up and the suspended checks conclude.',
-        fields: { from: st.from || '', to: st.to || '', partial: fmtUsd(partial), n: String(stopped.length), period: fmtDay(day), received: sales ? fmtStamp(sales.received_at) : '' },
-        calc: [['Counter sales export', sales ? `${sales.path}, ${st.from} to ${st.to}, received ${fmtStamp(sales.received_at)}` : 'not received'], ['Control trailer', sales?.trailer ? 'present' : 'none'], ['Register close', close.status === 'ok' ? 'received' : 'not received', true], ['Counter sales so far (before tax)', fmtUsd(partial)], ['Checks suspended', stopped.join(', ') || 'none', true]],
+        headline: !sales ? 'No POS export received: counter totals unavailable' : usableSales ? `POS export covers ${st.from} to ${st.to}, ${reason}: counter totals partial` : `POS export not usable: ${reason}`,
+        action: 'Get the register close or a corrected end-of-day export; the run picks it up and the suspended checks conclude. The counter deposits already booked in QuickBooks are checked only once the close is in.',
+        fields: { from: st.from || '', to: st.to || '', reason, partial: partial === null ? '' : fmtUsd(partial), n: String(stopped.length), period: fmtDay(day), received: sales ? fmtStamp(sales.received_at) : '' },
+        calc: [['Counter sales export', sales ? `${sales.path}, ${st.from} to ${st.to}, received ${fmtStamp(sales.received_at)}` : 'not received'], ['Control trailer', sales?.trailer ? 'present' : 'none'], ['Register close', close.status === 'ok' ? 'received' : 'not received', true], ['Counter sales so far (before tax)', partial === null ? 'not counted' : fmtUsd(partial)], ['Checks suspended', stopped.join(', ') || 'none', true]],
         evidence: [
           ...(sales ? [{ system: 'POS (assumed export)', style: 'sheet', title: `Counter sales export, last receipts`, file: sales.path, received_at: sales.received_at, columns: ['Receipt', 'Time', 'Item', 'Amount', 'Tax', 'Tender'],
             rows: [...sales.rows.slice(-5).map((x) => ({ cells: [x.receipt, x.time, x.description, x.amount, x.tax, x.tender] })), ...(sales.trailer ? [] : [{ cells: ['', '', 'no control trailer after this row', '', '', ''], mark: 'ghost' }])],
@@ -192,15 +207,15 @@ export function runDay(files, day, opts = {}) {
   const delivered = meterOk ? sum(chosen.meter_register.rows.filter((r) => r.record === 'TICKET' && r.status !== 'VOID'), (r) => tenths(r.net_gal)) : null;
   const act = postedOk ? chosen.cargas_posted.rows.filter((r) => r.status !== 'VOID') : [];
   const sales = chosen.pos_sales; const posState = status.pos_sales.status;
-  const counter = sales ? sum(sales.rows.filter((r) => r.type === 'SALE'), (r) => cents(r.amount)) : null;
-  const poa = sales ? sum(sales.rows.filter((r) => r.type === 'PAYMENT_ON_ACCOUNT'), (r) => cents(r.amount)) : 0;
+  const salesUsable = sales && (posState === 'ok' || (posState === 'unverified' && sales.meta.period === day));
+  const counter = salesUsable ? sum(sales.rows.filter((r) => r.type === 'SALE'), (r) => cents(r.amount)) : null;
+  const poa = salesUsable ? sum(sales.rows.filter((r) => r.type === 'PAYMENT_ON_ACCOUNT'), (r) => cents(r.amount)) : 0;
   const kpis = [
     { id: 'delivered', label: 'Gallons delivered', value: meterOk ? fmtGal(delivered) : 'unavailable', basis: 'net at 60 °F, from the truck meters', status: meterOk ? 'ok' : 'unavailable' },
     { id: 'revenue_posted', label: 'Delivery revenue posted', value: postedOk ? fmtUsd(sum(act, (r) => cents(r.amount))) : 'unavailable', basis: postedOk ? `${act.length} transactions, ${fmtGal(sum(act, (r) => tenths(r.net_gal)))}, posted in Cargas (accrual)` : `posted export ${status.cargas_posted.status}`, status: postedOk ? 'ok' : 'unavailable' },
     { id: 'counter_sales', label: 'Counter sales', value: counter === null ? 'unavailable' : fmtUsd(counter), basis: `POS, before tax${poa ? `, excludes ${fmtUsd(poa)} paid on account` : ''}`, status: counter === null ? 'unavailable' : posState === 'ok' ? 'ok' : 'partial' },
     { id: 'payments', label: 'Customer payments', value: ok('cargas_payments') ? fmtUsd(sum(chosen.cargas_payments.rows, (r) => cents(r.amount))) : 'unavailable', basis: 'recorded in Cargas', status: ok('cargas_payments') ? 'ok' : 'unavailable' },
-    { id: 'deposits', label: 'Deposits booked', value: ok('qbo_deposits') ? fmtUsd(sum(chosen.qbo_deposits.rows, (r) => cents(r.TotalAmt))) : 'unavailable', basis: 'QuickBooks Online, net of card fees', status: ok('qbo_deposits') ? 'ok' : 'unavailable' },
-    { id: 'margin', label: 'Gross margin', value: 'not calculated', basis: 'no cost method in this sample', status: 'unavailable' },
+    { id: 'deposits', label: 'Deposits booked, office and counter', value: ok('qbo_deposits') ? fmtUsd(sum(chosen.qbo_deposits.rows, (r) => cents(r.TotalAmt))) : 'unavailable', basis: 'QuickBooks Online, net of card fees', status: ok('qbo_deposits') ? 'ok' : 'unavailable' },
   ];
 
   // 7. one ledger line per rule
@@ -215,7 +230,10 @@ export function runDay(files, day, opts = {}) {
 
   const sources = Object.entries(status).filter(([n, s]) => s.status !== 'none').map(([n, s]) => ({ source: n, label: SOURCES[n].label, system: SOURCES[n].system, kind: SOURCES[n].kind, ...s }));
   const report = { day, runAt, rerunAt, posClose, closeOnTime, sources, fileLog, kpis, dossiers, ledger, lines };
-  report.counts = { person: person.length, cannot: cannot.length, explained: explained.length, rules: ledger.filter((l) => l.state !== 'not applicable').length };
+  const applicable = ledger.filter((l) => l.state !== 'not applicable');
+  const held = applicable.filter((l) => lines.filter((x) => x.rule === l.rule).every((x) => x.status === 'suspended')).length;
+  report.counts = { person: person.length, cannot: cannot.length, explained: explained.length, rules: applicable.length, completed: applicable.length - held, held };
+  report.entityNames = (chosen.customers?.rows || []).filter((r) => r.type !== 'RES').map((r) => r.name);
   report.summary = buildSummary(report);
   return report;
 }

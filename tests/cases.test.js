@@ -24,6 +24,7 @@ for (const c of cases()) {
           assert.equal(d.qualification, c.qualification);
           if (c.amount_cents !== undefined) assert.equal(d.amount, c.amount_cents);
           if (c.qty_tenths !== undefined) assert.equal(d.qty, c.qty_tenths);
+          if (c.gaps) assert.equal(d.fields.gaps, c.gaps);
           if (c.expected_full !== undefined) { assert.equal(d.fields.expected, String(c.expected_full)); assert.equal(d.fields.counted, String(c.counted_full)); }
           if (c.account_differences) {
             const [more] = Object.entries(c.account_differences).find(([, v]) => v > 0); const [less] = Object.entries(c.account_differences).find(([, v]) => v < 0);
@@ -38,7 +39,7 @@ for (const c of cases()) {
             const ls = r.lines.filter((l) => l.rule === c.rule && String(l.scope) === c.scope);
             assert.ok(ls.length, `rule ${c.rule} did not check ${c.scope}`);
             for (const l of ls) assert.ok(c.allowed_status.includes(l.status), `${c.rule} ${c.scope} is ${l.status}`);
-            assert.ok(!r.dossiers.some((d) => d.status === 'flag' && String(d.scope) === c.scope), 'raised as a finding');
+            assert.ok(!r.dossiers.some((d) => d.status === 'flag' && d.rule === c.rule && String(d.scope) === c.scope), 'raised as a finding');
           }
         } else {
           if (c.source) {

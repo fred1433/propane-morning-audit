@@ -2,76 +2,410 @@
   "note": "Written by hand from the scenario design, before the engine existed. Amounts are worked out here, not taken from engine output. kind: find = the engine must raise it with these records and this qualification; quiet = the engine must not raise it; not_conclude = the engine must refuse to conclude and say why.",
   "cases": [
     {
-      "id": "THU_TICKET_NOT_POSTED", "kind": "find", "day": "2026-10-29", "pos_close": ["missing", "received"],
-      "rule": "TICKET_POSTED", "scope": "B-12", "status": "flag", "qualification": "billing_to_verify",
-      "amount_cents": 70776, "work": "240.0 gal x 2.949 $/gal (RES-STD from 2026-10-28) = 707.76",
-      "records": ["meter_register:B-12:5536", "cargas_routes:RT-12-1029", "cargas_posted:2026-10-29"],
-      "why": "The meter register of truck B-12 printed ticket 5536 (240.0 gal net) at 11:22. Route RT-12-1029 closed at 17:42, the posting deadline (20:00) has passed, the posted-transactions export is complete by its trailer, and no posted transaction carries ticket 5536."
+      "id": "THU_TICKET_NOT_POSTED",
+      "kind": "find",
+      "day": "2026-10-29",
+      "pos_close": [
+        "missing",
+        "received"
+      ],
+      "rule": "TICKET_POSTED",
+      "scope": "B-12",
+      "status": "flag",
+      "qualification": "billing_to_verify",
+      "amount_cents": 70776,
+      "work": "240.0 gal x 2.949 $/gal (RES-STD from 2026-10-28) = 707.76",
+      "records": [
+        "meter_register:B-12:5536",
+        "cargas_routes:RT-12-1029",
+        "cargas_posted:2026-10-29"
+      ],
+      "why": "The meter register of truck B-12 printed ticket 5536 (240.0 gal net) at 11:21. Route RT-12-1029 closed at 17:42, the posting deadline (20:00) has passed, the posted-transactions export is complete by its trailer, and no posted transaction carries ticket 5536."
     },
     {
-      "id": "THU_CARD_DEPOSIT_EXPLAINED", "kind": "find", "day": "2026-10-29", "pos_close": ["missing", "received"],
-      "rule": "DEPOSIT_TO_QBO", "scope": "CD-1029-CARD", "status": "explained", "qualification": "explained",
-      "amount_cents": 3000, "work": "Cargas deposit 1000.00 (250 + 310 + 185 + 255); QBO Deposit 970.00; settlement OFC-1029 fee 30.00, adjustment 0.00; QBO fee line -30.00 on 6120",
-      "records": ["cargas_deposits:CD-1029-CARD", "qbo_deposits:CD-1029-CARD", "processor_settlement:OFC-1029"]
+      "id": "THU_CARD_DEPOSIT_EXPLAINED",
+      "kind": "find",
+      "day": "2026-10-29",
+      "pos_close": [
+        "missing",
+        "received"
+      ],
+      "rule": "DEPOSIT_TO_QBO",
+      "scope": "CD-1029-CARD",
+      "status": "explained",
+      "qualification": "explained",
+      "amount_cents": 3000,
+      "work": "Cargas deposit 1000.00 (250 + 310 + 185 + 255); QBO Deposit 970.00; settlement OFC-1029 fee 30.00, adjustment 0.00; QBO fee line -30.00 on 6120",
+      "records": [
+        "cargas_deposits:CD-1029-CARD",
+        "qbo_deposits:CD-1029-CARD",
+        "processor_settlement:OFC-1029"
+      ]
     },
     {
-      "id": "THU_POS_CLOSE_MISSING", "kind": "not_conclude", "day": "2026-10-29", "pos_close": ["missing"],
-      "rule": "POS_COMPLETENESS", "status": "suspended",
-      "suspends": ["POS_CASH_TO_QBO", "POS_CARD_TO_SETTLEMENT"], "kpi_partial": "counter_sales",
+      "id": "THU_POS_CLOSE_MISSING",
+      "kind": "not_conclude",
+      "day": "2026-10-29",
+      "pos_close": [
+        "missing"
+      ],
+      "rule": "POS_COMPLETENESS",
+      "status": "suspended",
+      "suspends": [
+        "POS_CASH_TO_QBO",
+        "POS_CARD_TO_SETTLEMENT"
+      ],
+      "kpi_partial": "counter_sales",
       "why": "Only the intraday POS export (07:00 to 13:12, no trailer) had arrived by 06:00; no register close. Counter sales are a partial total and the counter deposit checks cannot conclude."
     },
     {
-      "id": "THU_POS_CASH_DIFFERENCE", "kind": "find", "day": "2026-10-29", "pos_close": ["received"],
-      "rule": "POS_CASH_TO_QBO", "scope": "Z-1029", "status": "flag", "qualification": "accounting_difference",
-      "amount_cents": 12000, "work": "Register close Z-1029 cash tender minus QBO Deposit Z-1029-CASH = 120.00 (the QBO deposit was written 120.00 lower)",
-      "records": ["pos_close:Z-1029", "qbo_deposits:Z-1029-CASH"]
+      "id": "THU_POS_CASH_DIFFERENCE",
+      "kind": "find",
+      "day": "2026-10-29",
+      "pos_close": [
+        "received"
+      ],
+      "rule": "POS_CASH_TO_QBO",
+      "scope": "Z-1029",
+      "status": "flag",
+      "qualification": "accounting_difference",
+      "amount_cents": 12000,
+      "work": "Register close Z-1029 cash tender minus QBO Deposit Z-1029-CASH = 120.00 (the QBO deposit was written 120.00 lower)",
+      "records": [
+        "pos_close:Z-1029",
+        "qbo_deposits:Z-1029-CASH"
+      ]
     },
     {
-      "id": "THU_CAGE_D07", "kind": "find", "day": "2026-10-29", "pos_close": ["missing", "received"],
-      "rule": "CAGE_COUNT", "scope": "D-07", "status": "flag", "qualification": "quantity_to_confirm",
-      "expected_full": 22, "counted_full": 21, "work": "20 full at the 22 Oct count + 12 delivered - 8 exchanged - 2 sold without return = 22; counted 21",
-      "records": ["cage_counts:CG-07A:2026-10-22", "cage_counts:CG-07A:2026-10-29", "cylinder_movements:DSR-07-1029"]
+      "id": "THU_CAGE_D07",
+      "kind": "find",
+      "day": "2026-10-29",
+      "pos_close": [
+        "missing",
+        "received"
+      ],
+      "rule": "CAGE_COUNT",
+      "scope": "D-07",
+      "status": "flag",
+      "qualification": "quantity_to_confirm",
+      "expected_full": 22,
+      "counted_full": 21,
+      "work": "20 full at the 22 Oct count + 12 delivered - 8 exchanged - 2 sold without return = 22; counted 21",
+      "records": [
+        "cage_counts:CG-07A:2026-10-22",
+        "cage_counts:CG-07A:2026-10-29",
+        "cylinder_movements:DSR-07-1029"
+      ]
     },
     {
-      "id": "THU_LEASE_L0112", "kind": "find", "day": "2026-10-29", "also_days": ["2026-10-30"], "pos_close": ["missing", "received"],
-      "rule": "LEASE_BILLED", "scope": "L-0112", "status": "flag", "qualification": "billing_to_verify",
-      "amount_cents": 2500, "work": "Monthly rent 25.00 due 1 Oct; October cycle closed 28 Oct; no lease charge for L-0112 in the month-to-date export",
-      "records": ["leases:L-0112", "cargas_lease_charges:2026-10"]
+      "id": "THU_LEASE_L0112",
+      "kind": "find",
+      "day": "2026-10-29",
+      "also_days": [
+        "2026-10-30"
+      ],
+      "pos_close": [
+        "missing",
+        "received"
+      ],
+      "rule": "LEASE_BILLED",
+      "scope": "L-0112",
+      "status": "flag",
+      "qualification": "billing_to_verify",
+      "amount_cents": 2500,
+      "work": "Monthly rent 25.00 due 1 Oct; October cycle closed 28 Oct; no lease charge for L-0112 in the month-to-date export",
+      "records": [
+        "leases:L-0112",
+        "cargas_lease_charges:2026-10"
+      ]
     },
     {
-      "id": "TUE_GL_SPLIT", "kind": "find", "day": "2026-10-27",
-      "rule": "GL_BATCH_TO_QBO", "scope": "GL-1027", "status": "flag", "qualification": "accounting_difference",
-      "amount_cents": 41250, "account_differences": { "4010": 41250, "4020": -41250 },
+      "id": "TUE_GL_SPLIT",
+      "kind": "find",
+      "day": "2026-10-27",
+      "rule": "GL_BATCH_TO_QBO",
+      "scope": "GL-1027",
+      "status": "flag",
+      "qualification": "accounting_difference",
+      "amount_cents": 41250,
+      "account_differences": {
+        "4010": 41250,
+        "4020": -41250
+      },
       "work": "QBO JournalEntry GL-1027 credits 4010 with 412.50 more and 4020 with 412.50 less than the Cargas batch; debits equal credits and the total is unchanged. 412.50 = 165.0 gal x 2.500 (ticket 7693, C-2210, commercial).",
-      "records": ["cargas_gl_batch:GL-1027", "qbo_journalentries:GL-1027"]
+      "records": [
+        "cargas_gl_batch:GL-1027",
+        "qbo_journalentries:GL-1027"
+      ]
     },
     {
-      "id": "WED_PRICE_BELOW_PLAN", "kind": "find", "day": "2026-10-28",
-      "rule": "PRICE_PLAN", "scope": "88063", "status": "flag", "qualification": "billing_to_verify",
-      "amount_cents": 8100, "work": "(2.949 - 2.499) x 180.0 gal = 81.00; no PreBuy contract for R-1123, no approval for ticket 4433",
-      "records": ["cargas_posted:88063", "price_plans:RES-STD"]
+      "id": "WED_PRICE_BELOW_PLAN",
+      "kind": "find",
+      "day": "2026-10-28",
+      "rule": "PRICE_PLAN",
+      "scope": "88063",
+      "status": "flag",
+      "qualification": "billing_to_verify",
+      "amount_cents": 8100,
+      "work": "(2.949 - 2.499) x 180.0 gal = 81.00; no PreBuy contract for R-1123, no approval for ticket 4433",
+      "records": [
+        "cargas_posted:88063",
+        "price_plans:RES-STD"
+      ]
     },
     {
-      "id": "WED_GAUGE_DIFFERENCE", "kind": "find", "day": "2026-10-28",
-      "rule": "BULK_BALANCE", "scope": "plant", "status": "flag", "qualification": "quantity_to_confirm",
-      "qty_tenths": -8200, "tolerance_tenths": 4500,
+      "id": "WED_GAUGE_DIFFERENCE",
+      "kind": "find",
+      "day": "2026-10-28",
+      "rule": "BULK_BALANCE",
+      "scope": "plant",
+      "status": "flag",
+      "qualification": "quantity_to_confirm",
+      "qty_tenths": -8200,
+      "tolerance_tenths": 4500,
       "work": "Closing gauge estimates are 820.0 gal below opening + receipts - deliveries - dock fills; tolerance 450.0 gal. An estimate from gauges, never a loss."
     },
-    { "id": "MON_PREBUY_PRICE", "kind": "quiet", "day": "2026-10-26", "rule": "PRICE_PLAN", "scope": "88023", "allowed_status": ["explained"], "why": "2.399 under PreBuy contract PB-118 (R-1137, 600.0 gal, 1 Sep 2026 to 31 Mar 2027)." },
-    { "id": "TUE_APPROVED_PRICE", "kind": "quiet", "day": "2026-10-27", "rule": "PRICE_PLAN", "scope": "88056", "allowed_status": ["explained"], "why": "2.399 for C-2205 ticket 7696 approved as AP-311." },
-    { "id": "TUE_VOID_REPLACED_ONCE", "kind": "quiet", "day": "2026-10-27", "rule": "ACTIVE_ONCE", "scope": "4423", "allowed_status": ["pass"], "active_txn": "88034", "why": "88033 voided and replaced by 88034: ticket 4423 counts once (142.4 gal, 412.82)." },
-    { "id": "TUE_DUPLICATE_FILE", "kind": "quiet", "day": "2026-10-27", "source_status": { "file": "days/2026-10-27/cargas_posted (1).csv", "status": "duplicate" }, "why": "Same bytes as the export received at 21:05: ignored, creates nothing." },
-    { "id": "WED_LATE_POSTING", "kind": "quiet", "day": "2026-10-28", "rule": "POSTED_MATCH", "scope": "88087", "allowed_status": ["explained"], "why": "Ticket 7699 delivered Tue 27, posted Wed 07:55 after route RT-14-1027 was closed; it matches the Tuesday meter register." },
-    { "id": "MON_TEMPERATURE_SWING", "kind": "quiet", "day": "2026-10-26", "rule": "BULK_BALANCE", "scope": "plant", "allowed_status": ["pass"], "why": "Liquid at 47 F in the morning and 81 F in the evening: gauge readings move, net quantities at 60 F still balance." },
-    { "id": "THU_GL_BATCH_CONSISTENT", "kind": "quiet", "day": "2026-10-29", "rule": "GL_BATCH_TO_QBO", "scope": "GL-1029", "allowed_status": ["pass"] },
-    { "id": "THU_CAGE_D03", "kind": "quiet", "day": "2026-10-29", "rule": "CAGE_COUNT", "scope": "D-03", "allowed_status": ["pass"], "why": "16 + 10 - 9 - 1 = 16; counted 16." },
-    { "id": "LEASE_NOT_YET_DUE", "kind": "quiet", "day": "2026-10-29", "rule": "LEASE_BILLED", "scope": "L-0119", "allowed_status": ["pass"], "why": "Annual rent due 15 Jan 2027." },
-    { "id": "LEASE_WAIVED", "kind": "quiet", "day": "2026-10-29", "rule": "LEASE_BILLED", "scope": "L-0104", "allowed_status": ["pass"], "why": "Rent waived by the contract." },
-    { "id": "LEASE_BILLED_OK", "kind": "quiet", "day": "2026-10-29", "rule": "LEASE_BILLED", "scope": "L-0108", "allowed_status": ["pass"] },
-    { "id": "LEASE_CYCLE_OPEN", "kind": "quiet", "day": "2026-10-26", "rule": "LEASE_BILLED", "scope": "L-0112", "allowed_status": ["pass"], "why": "October cycle still open until 28 Oct." },
-    { "id": "TUE_ROUTE_OPEN", "kind": "not_conclude", "day": "2026-10-27", "rule": "TICKET_POSTED", "scope": "B-14", "status": "pending", "tickets": ["7699"], "why": "Route RT-14-1027 was still OPEN in the export: a ticket missing from posted transactions is not yet a finding." },
-    { "id": "WED_STALE_DEPOSITS", "kind": "not_conclude", "day": "2026-10-28", "source": "cargas_deposits", "source_status": "stale", "covers": "2026-10-26", "suspends": ["DEPOSIT_TO_QBO", "PAYMENTS_IN_DEPOSITS"] },
-    { "id": "FRI_POSTED_INCOMPLETE", "kind": "not_conclude", "day": "2026-10-30", "source": "cargas_posted", "source_status": "incomplete", "rows_received": 20, "rows_announced": 27, "suspends": ["TICKET_POSTED", "POSTED_MATCH", "PRICE_PLAN", "ACTIVE_ONCE", "GL_BATCH_TO_QBO"], "kpi_unavailable": "revenue_posted" },
-    { "id": "FRI_GAUGE_BASE_UNKNOWN", "kind": "not_conclude", "day": "2026-10-30", "rule": "BULK_BALANCE", "scope": "plant", "status": "suspended", "why": "The 18:30 storage reading has no temperature and no net quantity: base unknown, no correction is guessed." }
+    {
+      "id": "TUE_METER_TOTALIZER",
+      "kind": "find",
+      "day": "2026-10-27",
+      "rule": "METER_BALANCE",
+      "scope": "B-12",
+      "status": "flag",
+      "qualification": "quantity_to_confirm",
+      "qty_tenths": 124,
+      "work": "Planted in the generator: 12.4 gal added to the B-12 net totalizer after the last ticket, with no ticket printed. (end - start) - sum of the 10 net tickets = +12.4 gal, above the 0.5 gal tolerance.",
+      "records": [
+        "meter_register:B-12"
+      ]
+    },
+    {
+      "id": "FRI_METER_GAP",
+      "kind": "find",
+      "day": "2026-10-30",
+      "rule": "METER_SEQUENCE",
+      "scope": "B-11",
+      "status": "flag",
+      "qualification": "quantity_to_confirm",
+      "gaps": "4452",
+      "work": "B-11 printed 4448 to 4451, then 4453 to 4457 (9 tickets); Thursday's register ended at 4447. Number 4452 never reaches the register.",
+      "records": [
+        "meter_register:B-11:4451",
+        "meter_register:4453"
+      ]
+    },
+    {
+      "id": "MON_PREBUY_PRICE",
+      "kind": "quiet",
+      "day": "2026-10-26",
+      "rule": "PRICE_PLAN",
+      "scope": "88023",
+      "allowed_status": [
+        "explained"
+      ],
+      "why": "2.399 under PreBuy contract PB-118 (R-1137, 600.0 gal, 1 Sep 2026 to 31 Mar 2027)."
+    },
+    {
+      "id": "TUE_APPROVED_PRICE",
+      "kind": "quiet",
+      "day": "2026-10-27",
+      "rule": "PRICE_PLAN",
+      "scope": "88056",
+      "allowed_status": [
+        "explained"
+      ],
+      "why": "2.399 for C-2205 ticket 7696 approved as AP-311."
+    },
+    {
+      "id": "TUE_VOID_REPLACED_ONCE",
+      "kind": "quiet",
+      "day": "2026-10-27",
+      "rule": "ACTIVE_ONCE",
+      "scope": "4423",
+      "allowed_status": [
+        "pass"
+      ],
+      "active_txn": "88034",
+      "why": "88033 voided and replaced by 88034: ticket 4423 counts once (142.4 gal, 412.82)."
+    },
+    {
+      "id": "TUE_DUPLICATE_FILE",
+      "kind": "quiet",
+      "day": "2026-10-27",
+      "source_status": {
+        "file": "days/2026-10-27/cargas_posted (1).csv",
+        "status": "duplicate"
+      },
+      "why": "Same bytes as the export received at 21:05: ignored, creates nothing."
+    },
+    {
+      "id": "WED_LATE_POSTING",
+      "kind": "quiet",
+      "day": "2026-10-28",
+      "rule": "POSTED_MATCH",
+      "scope": "88087",
+      "allowed_status": [
+        "explained"
+      ],
+      "why": "Ticket 7699 delivered Tue 27, posted Wed 07:55 after route RT-14-1027 was closed; it matches the Tuesday meter register."
+    },
+    {
+      "id": "MON_TEMPERATURE_SWING",
+      "kind": "quiet",
+      "day": "2026-10-26",
+      "rule": "BULK_BALANCE",
+      "scope": "plant",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "Truck meter temperatures run from 46 F in the morning to 86 F in the afternoon, so gross and net gallons drift apart on the tickets; the storage tank only moves from 54 F to 61 F. Net quantities at 60 F still balance."
+    },
+    {
+      "id": "THU_GL_BATCH_CONSISTENT",
+      "kind": "quiet",
+      "day": "2026-10-29",
+      "rule": "GL_BATCH_TO_QBO",
+      "scope": "GL-1029",
+      "allowed_status": [
+        "pass"
+      ]
+    },
+    {
+      "id": "THU_CAGE_D03",
+      "kind": "quiet",
+      "day": "2026-10-29",
+      "rule": "CAGE_COUNT",
+      "scope": "D-03",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "16 + 10 - 9 - 1 = 16; counted 16."
+    },
+    {
+      "id": "LEASE_NOT_YET_DUE",
+      "kind": "quiet",
+      "day": "2026-10-29",
+      "rule": "LEASE_BILLED",
+      "scope": "L-0119",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "Annual rent due 15 Jan 2027."
+    },
+    {
+      "id": "LEASE_WAIVED",
+      "kind": "quiet",
+      "day": "2026-10-29",
+      "rule": "LEASE_BILLED",
+      "scope": "L-0104",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "Rent waived by the contract."
+    },
+    {
+      "id": "LEASE_BILLED_OK",
+      "kind": "quiet",
+      "day": "2026-10-29",
+      "rule": "LEASE_BILLED",
+      "scope": "L-0108",
+      "allowed_status": [
+        "pass"
+      ]
+    },
+    {
+      "id": "LEASE_CYCLE_OPEN",
+      "kind": "quiet",
+      "day": "2026-10-26",
+      "rule": "LEASE_BILLED",
+      "scope": "L-0112",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "On Mon 26 Oct the October cycle is still open until 28 Oct; the last closed cycle is September, where L-0112 was billed (LC-8902)."
+    },
+    {
+      "id": "TUE_ROUTE_OPEN",
+      "kind": "not_conclude",
+      "day": "2026-10-27",
+      "rule": "TICKET_POSTED",
+      "scope": "B-14",
+      "status": "pending",
+      "tickets": [
+        "7699"
+      ],
+      "why": "Route RT-14-1027 was still OPEN in the export: a ticket missing from posted transactions is not yet a finding."
+    },
+    {
+      "id": "WED_STALE_DEPOSITS",
+      "kind": "not_conclude",
+      "day": "2026-10-28",
+      "source": "cargas_deposits",
+      "source_status": "stale",
+      "covers": "2026-10-26",
+      "suspends": [
+        "DEPOSIT_TO_QBO",
+        "PAYMENTS_IN_DEPOSITS"
+      ]
+    },
+    {
+      "id": "FRI_POSTED_INCOMPLETE",
+      "kind": "not_conclude",
+      "day": "2026-10-30",
+      "source": "cargas_posted",
+      "source_status": "incomplete",
+      "rows_received": 20,
+      "rows_announced": 27,
+      "suspends": [
+        "TICKET_POSTED",
+        "POSTED_MATCH",
+        "PRICE_PLAN",
+        "ACTIVE_ONCE",
+        "GL_BATCH_TO_QBO"
+      ],
+      "kpi_unavailable": "revenue_posted"
+    },
+    {
+      "id": "FRI_GAUGE_BASE_UNKNOWN",
+      "kind": "not_conclude",
+      "day": "2026-10-30",
+      "rule": "BULK_BALANCE",
+      "scope": "plant",
+      "status": "suspended",
+      "why": "The 18:30 storage reading has no temperature and no net quantity: base unknown, no correction is guessed."
+    },
+    {
+      "id": "TUE_METER_CONTINUITY",
+      "kind": "quiet",
+      "day": "2026-10-27",
+      "rule": "METER_SEQUENCE",
+      "scope": "B-11",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "Monday ended at 4418, Tuesday starts at 4419 and runs to 4428."
+    },
+    {
+      "id": "THU_METER_BALANCED",
+      "kind": "quiet",
+      "day": "2026-10-29",
+      "rule": "METER_BALANCE",
+      "scope": "B-12",
+      "allowed_status": [
+        "pass"
+      ],
+      "why": "The ticket that is not posted is on the meter: the totalizer equals the sum of the ten net tickets."
+    },
+    {
+      "id": "MON_PREBUY_NOT_OVERBILLED",
+      "kind": "quiet",
+      "day": "2026-10-26",
+      "rule": "PRICE_PLAN",
+      "scope": "88023",
+      "allowed_status": [
+        "explained"
+      ],
+      "why": "R-1137 is billed at its locked price, 2.399, and is delivered only once in the week."
+    }
   ]
 }

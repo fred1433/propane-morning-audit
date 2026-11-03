@@ -13,6 +13,6 @@
     "sent": "2026-11-01T06:30",
     "by": "a watchdog that runs apart from the audit job",
     "subject": "Morning audit for Sat 31 Oct not produced by 06:30",
-    "body": "No successful run since Sat 31 Oct, 06:00:42. The audit job did not start, so it could not raise this alert itself. Check the runner host, then the overnight export drop. Reports already sent are unchanged."
+    "body": "The last successful run, for Fri 30 Oct, ended Sat 31 Oct at 06:00:42. The audit job did not start, so it could not raise this alert itself. Check the runner host, then the overnight export drop. Reports already sent are unchanged."
   }
 }

@@ -12,7 +12,8 @@ let seed = 20261026;
 const rnd = () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 const ri = (a, b) => a + Math.floor(rnd() * (b - a + 1));
 const pick = (a) => a[Math.floor(rnd() * a.length)];
-const gal = (t) => (t / 10).toFixed(1);          // tenths of a gallon -> "240.0"
+const gal = (t) => (t / 10).toFixed(1);
+const tenths = (s) => Math.round(Number(s) * 10);          // tenths of a gallon -> "240.0"
 const usd = (c) => (c / 100).toFixed(2);         // cents -> "707.76"
 const px = (m) => (m / 1000).toFixed(3);         // mills -> "2.949"
 const hm = (m) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
@@ -30,8 +31,9 @@ const q = (v) => { const s = String(v ?? ''); return /[",\n]/.test(s) ? `"${s.re
 const csv = (head, cols, rows, trailer) => [head, cols.join(','), ...rows.map((r) => cols.map((c) => q(r[c])).join(',')), ...(trailer ? [trailer] : [])].join('\n') + '\n';
 
 // ---------- reference data ----------
-const RES = [['R-1012', 'Northeast'], ['R-1019', 'Northeast'], ['R-1027', 'Upper Valley'], ['R-1031', 'Upper Valley'], ['R-1044', 'Canutillo'], ['R-1046', 'Canutillo'], ['R-1053', 'Westway'], ['R-1058', 'Anthony'], ['R-1061', 'Anthony'], ['R-1067', 'Vinton'], ['R-1072', 'Lower Valley'], ['R-1075', 'Lower Valley'], ['R-1079', 'Socorro'], ['R-1083', 'Socorro'], ['R-1088', 'Horizon City'], ['R-1091', 'Horizon City'], ['R-1096', 'Clint'], ['R-1102', 'Clint'], ['R-1108', 'Fabens'], ['R-1113', 'Fabens'], ['R-1117', 'San Elizario'], ['R-1123', 'San Elizario'], ['R-1129', 'Montana Vista'], ['R-1137', 'Montana Vista']];
-const COM = [['C-2201', 'Tres Cruces Bakery', 'COM-A'], ['C-2203', 'Bajada Auto Body', 'COM-A'], ['C-2204', 'Agave Row Kitchen', 'COM-C'], ['C-2205', 'Mesa Caliza Steel Works', 'COM-A'], ['C-2206', 'Desert Lark Greenhouse', 'COM-B'], ['C-2207', 'Cactus Wren Tortilleria', 'COM-A'], ['C-2208', 'Hueco Rock Event Hall', 'COM-C'], ['C-2209', 'Coyote Gulch Car Wash', 'COM-B'], ['C-2210', 'Ocotillo Pallet Works', 'COM-D'], ['C-2212', 'Loma Verde Laundry', 'COM-B']];
+const AREAS = ['Northeast', 'Upper Valley', 'Canutillo', 'Westway', 'Anthony', 'Vinton', 'Lower Valley', 'Socorro', 'Horizon City', 'Clint', 'Fabens', 'San Elizario', 'Montana Vista'];
+const RES = Array.from({ length: 170 }, (_, i) => [`R-${1001 + i}`, AREAS[(i * 7) % AREAS.length]]);
+const COM = [['C-2201', 'Tres Cruces Bakery', 'COM-A'], ['C-2203', 'Bajada Auto Body', 'COM-A'], ['C-2204', 'Agave Row Kitchen', 'COM-C'], ['C-2205', 'Mesa Caliza Steel Works', 'COM-A'], ['C-2206', 'Desert Lark Greenhouse', 'COM-B'], ['C-2207', 'Cactus Wren Tortilleria', 'COM-A'], ['C-2208', 'Hueco Rock Event Hall', 'COM-C'], ['C-2209', 'Coyote Gulch Car Wash', 'COM-B'], ['C-2210', 'Ocotillo Pallet Works', 'COM-D'], ['C-2212', 'Loma Verde Laundry', 'COM-B'], ['C-2213', 'Arroyo Lindo Tire Shop', 'COM-B'], ['C-2214', 'Pecan Row Dryer Shed', 'COM-C'], ['C-2215', 'Saguaro Lane Tamales', 'COM-A'], ['C-2216', 'Mesquite Flat Forklift Yard', 'COM-D'], ['C-2217', 'Cielo Azul Laundromat', 'COM-B'], ['C-2218', 'Tecolote Print Works', 'COM-A']];
 const DEALERS = [['D-03', 'Tornillo Road Fuel Stop'], ['D-07', 'Palo Blanco Grocery'], ['D-11', 'Cholla Corner Store']];
 const PLAN = { 'RES-STD': [['2026-10-01', 2899], ['2026-10-28', 2949]], 'COM-A': [['2026-10-01', 2459]], 'COM-B': [['2026-10-01', 2299]], 'COM-C': [['2026-10-01', 2559]], 'COM-D': [['2026-10-01', 2500]] };
 const planOf = (acct) => (acct.startsWith('R-') ? 'RES-STD' : COM.find((c) => c[0] === acct)[2]);
@@ -59,13 +61,25 @@ put('reference/leases.csv', csv('#source=leases;period=reference;generated=2026-
   { lease: 'L-0119', tank: 'T-6110', tank_wc_gal: '250', owner: 'Sample Propane Co.', account: 'R-1046', site: 'Residence, backyard', start: '2026-01-15', end: '2029-01-14', rent: '96.00', frequency: 'ANNUAL', due_day: '15', cycle_close_day: '', next_due: '2027-01-15', waiver: '' },
 ]), REF_AT);
 
+put('monthly/2026-09/cargas_lease_charges.csv', csv('#source=cargas_lease_charges;period=2026-09;generated=2026-09-30T21:00', ['charge_id', 'date', 'lease', 'account', 'amount', 'tax'], [
+  { charge_id: 'LC-8901', date: '2026-09-01', lease: 'L-0108', account: 'C-2204', amount: '30.00', tax: '2.48' },
+  { charge_id: 'LC-8902', date: '2026-09-01', lease: 'L-0112', account: 'C-2207', amount: '25.00', tax: '2.06' },
+  { charge_id: 'LC-8903', date: '2026-09-01', lease: 'L-0115', account: 'C-2212', amount: '25.00', tax: '2.06' },
+]), '2026-09-30T21:05');
+
 // ---------- trucks and tickets ----------
-const RES_A = RES.slice(0, 12).map((r) => r[0]);
-const RES_B = RES.slice(12).map((r) => r[0]);
+// accounts used by planted cases or under contract never come out of the random draw
+const RESERVED = new Set(['R-1031', 'R-1088', 'R-1123', 'R-1137', 'R-1027', 'R-1046']);
+const resPool = RES.map((r) => r[0]).filter((a) => !RESERVED.has(a));
+const drawRes = () => resPool.splice(Math.floor(rnd() * resPool.length), 1)[0]; // each residence delivered once in the week
+const TRUCK_WC = 32000; const TRUCK_CAP = 26500; const RESERVE = 1000; // tenths: 3,200 gal tank, filled to about 85 %
+put('reference/trucks.csv', csv('#source=trucks;period=reference;generated=2026-10-25T20:00', ['truck', 'meter_serial', 'tank_wc_gal', 'max_fill_pct'], [
+  { truck: 'B-11', meter_serial: 'MTR-30117', tank_wc_gal: '3200', max_fill_pct: '85' }, { truck: 'B-12', meter_serial: 'MTR-30142', tank_wc_gal: '3200', max_fill_pct: '85' }, { truck: 'B-14', meter_serial: 'MTR-30163', tank_wc_gal: '3200', max_fill_pct: '85' },
+]), REF_AT);
 const TRUCKS = {
-  'B-11': { serial: 'MTR-30117', no: 4410, counts: [9, 10, 9, 10, 9], tot: 12483305, pool: () => pick(RES_A), gauge: 8200, driver: 'Driver 3' },
-  'B-12': { serial: 'MTR-30142', no: 5501, counts: [10, 10, 10, 10, 9], tot: 9877410, pool: () => pick(RES_B), gauge: 6400, driver: 'Driver 5' },
-  'B-14': { serial: 'MTR-30163', no: 7681, counts: [9, 10, 9, 9, 9], tot: 15502226, pool: () => (rnd() < 0.7 ? pick(COM)[0] : pick(RES)[0]), gauge: 9100, driver: 'Driver 8' },
+  'B-11': { serial: 'MTR-30117', no: 4410, counts: [9, 10, 9, 10, 9], tot: 12483305, com: 0, gauge: 8200, driver: 'Driver 3' },
+  'B-12': { serial: 'MTR-30142', no: 5501, counts: [10, 10, 10, 10, 9], tot: 9877410, com: 0, gauge: 6400, driver: 'Driver 5' },
+  'B-14': { serial: 'MTR-30163', no: 7681, counts: [9, 10, 9, 9, 9], tot: 15502226, com: 0.6, gauge: 9100, driver: 'Driver 8' },
 };
 // planted overrides: [truck, day, ticket_no] -> fields
 const PLANT = {
@@ -89,18 +103,30 @@ const zCount = {}; const DEPS = {};
 DAYS.forEach((day, di) => {
   const N = NEXT[day]; const md = mmdd(day);
   const swing = day === '2026-10-26';
-  const tempAt = (min) => Math.round(swing ? 46 + ((min - 450) / 640) * 40 : 55 + ((min - 450) / 640) * 18);
-  const meterRows = []; const posted = []; const deliveredBy = {};
+  const tempAt = (min) => Math.round(swing ? 46 + ((min - 450) / 640) * 40 : 55 + ((min - 450) / 640) * 18); // liquid in the truck follows the air
+  const meterRows = []; const posted = []; const rackLoads = []; const truckClose = {};
   for (const [truck, T] of Object.entries(TRUCKS)) {
-    const n = T.counts[di]; let minute = 465 + ri(0, 15); let sum = 0;
-    meterRows.push({ truck, record: 'SHIFT_START', ticket_no: '', time: hm(minute - 25), account: '', gross_gal: '', net_gal: '', temp_f: '', totalizer_gal: gal(T.tot), status: '' });
+    const n = T.counts[di]; let minute = 465 + ri(0, 15);
+    const planted = Object.keys(PLANT).filter((k) => k.startsWith(`${truck}|${day}|`)).map((k) => PLANT[k].account).filter(Boolean);
+    const used = new Set(planted);
+    const draw = () => { let a; if (rnd() < T.com) { do { a = pick(COM)[0]; } while (used.has(a)); } else a = drawRes(); used.add(a); return a; };
+    let content = truckGauge[truck];
+    const first = Math.floor((TRUCK_CAP - content - ri(0, 1500)) / 100) * 100;
+    rackLoads.push({ time: `${day}T${hm(minute - 18)}`, truck, net_gal: gal(first), base: 'NET60', origin: 'RACK_METER' }); content += first;
+    meterRows.push({ truck, record: 'SHIFT_START', ticket_no: '', time: hm(minute - 25), account: '', gross_gal: '', net_gal: '', temp_f: '', totalizer_gal: gal(T.tot), base: 'NET60', status: '' });
     for (let i = 0; i < n; i++) {
-      const no = T.no++; const key = `${truck}|${day}|${no}`; const pl = PLANT[key] || {};
-      const account = pl.account || T.pool();
-      const net = pl.net || (account.startsWith('C-') ? ri(1800, 6200) : ri(900, 3300));
+      let no = T.no++;
+      if (truck === 'B-11' && day === '2026-10-30' && no === 4452) no = T.no++; // a ticket number that never reaches the register
+      const key = `${truck}|${day}|${no}`; const pl = PLANT[key] || {};
+      const account = pl.account || draw();
+      const net = pl.net || (account.startsWith('C-') ? ri(1800, 5200) : ri(900, 3300));
+      if (content - net < RESERVE) { // back to the plant for a second load, never above about 85 %
+        const L = Math.floor((TRUCK_CAP - content) / 100) * 100;
+        rackLoads.push({ time: `${day}T${hm(minute + 5)}`, truck, net_gal: gal(L), base: 'NET60', origin: 'RACK_METER' }); content += L; minute += 40;
+      }
       const tf = tempAt(minute); const gross = Math.round(net / VCF(tf));
-      T.tot += net; sum += net;
-      meterRows.push({ truck, record: 'TICKET', ticket_no: no, time: hm(minute), account, gross_gal: gal(gross), net_gal: gal(net), temp_f: tf, totalizer_gal: gal(T.tot), status: 'PRINTED' });
+      T.tot += net; content -= net;
+      meterRows.push({ truck, record: 'TICKET', ticket_no: no, time: hm(minute), account, gross_gal: gal(gross), net_gal: gal(net), temp_f: tf, totalizer_gal: gal(T.tot), base: 'NET60', status: 'PRINTED' });
       minute += ri(34, 56);
       if (pl.unposted) continue;
       const price = pl.price || planPrice(account, day);
@@ -113,14 +139,15 @@ DAYS.forEach((day, di) => {
         (lateCarry[pl.lateTo] ||= []).push({ ...row });
       } else posted.push({ ...row, txn_id: txnId++ });
     }
-    meterRows.push({ truck, record: 'SHIFT_END', ticket_no: '', time: hm(minute + 20), account: '', gross_gal: '', net_gal: '', temp_f: '', totalizer_gal: gal(T.tot), status: '' });
-    deliveredBy[truck] = sum;
+    if (truck === 'B-12' && day === '2026-10-27') { T.tot += 124; content -= 124; } // 12.4 gal through the meter with no ticket
+    meterRows.push({ truck, record: 'SHIFT_END', ticket_no: '', time: hm(minute + 20), account: '', gross_gal: '', net_gal: '', temp_f: '', totalizer_gal: gal(T.tot), base: 'NET60', status: '' });
+    truckClose[truck] = content;
   }
   for (const r of lateCarry[day] || []) posted.unshift({ ...r, txn_id: txnId++, _late: true });
   // posting times
   let pm = 17 * 60 + 52;
   for (const r of posted) { r.posted_at = r._late ? `${day}T07:55` : `${day}T${hm(pm)}`; if (!r._late) pm += ri(2, 5); r.gl_batch = `GL-${md}`; }
-  put(`days/${day}/meter_register.csv`, csv(`#source=meter_register;period=${day};generated=${day}T18:35`, ['truck', 'record', 'ticket_no', 'time', 'account', 'gross_gal', 'net_gal', 'temp_f', 'totalizer_gal', 'status'], meterRows), `${day}T18:40`);
+  put(`days/${day}/meter_register.csv`, csv(`#source=meter_register;period=${day};generated=${day}T18:35`, ['truck', 'record', 'ticket_no', 'time', 'account', 'gross_gal', 'net_gal', 'temp_f', 'totalizer_gal', 'base', 'status'], meterRows), `${day}T18:40`);
   put(`days/${day}/cargas_routes.csv`, csv(`#source=cargas_routes;period=${day};generated=${day}T21:00`, ['route_id', 'truck', 'driver', 'status', 'opened_at', 'closed_at'],
     Object.entries(TRUCKS).map(([truck, T]) => {
       const open = day === '2026-10-27' && truck === 'B-14';
@@ -220,24 +247,21 @@ DAYS.forEach((day, di) => {
   put(`days/${day}/qbo_deposits.json`, qboWrap('qbo_deposits', 'Deposit', qdeps, `select * from Deposit where TxnDate = '${day}'`), `${N}T05:30`);
 
   // bulk perimeter: storage tank + trucks
-  const gaugeRows = []; const rack = []; const receipts = []; const fills = [];
-  const open = { STORAGE: storage, ...truckGauge };
+  const gaugeRows = []; const rack = rackLoads.sort((a, b) => a.time.localeCompare(b.time)); const receipts = []; const fills = [];
   const g = (time, vessel, net, tf, wc) => ({ time: `${day}T${time}`, vessel, reading_pct: ((net / 10 / VCF(tf)) / wc * 100).toFixed(1), liquid_temp_f: tf, net_gal: gal(net), base: 'NET60', origin: 'GAUGE' });
-  const tOpen = swing ? 47 : 58; const tClose = swing ? 81 : 66;
-  gaugeRows.push(g('05:30', 'STORAGE-1', storage, tOpen, STORAGE_WC));
-  for (const t of Object.keys(TRUCKS)) gaugeRows.push(g('05:35', t, truckGauge[t], tOpen, 3200));
+  const sOpen = swing ? 54 : 58; const sClose = swing ? 61 : 62; // 30,000 gal of liquid warms slowly
+  const tOpen = swing ? 46 : 56; const tClose = swing ? 84 : 66; // truck tanks follow the air
+  gaugeRows.push(g('05:30', 'STORAGE-1', storage, sOpen, STORAGE_WC));
+  for (const t of Object.keys(TRUCKS)) gaugeRows.push(g('05:35', t, truckGauge[t], tOpen, TRUCK_WC / 10));
   const bol = { '2026-10-26': ['BOL-4471', 91800, '07:10'], '2026-10-28': ['BOL-4502', 92400, '06:55'], '2026-10-30': ['BOL-4529', 92000, '07:20'] }[day];
   if (bol) { receipts.push({ bol: bol[0], time: `${day}T${bol[2]}`, carrier: 'Transport carrier (fictional)', net_gal: gal(bol[1]), base: 'NET60', origin: 'BOL' }); storage += bol[1]; }
-  for (const t of Object.keys(TRUCKS)) {
-    const load = Math.max(0, Math.round((deliveredBy[t] - truckGauge[t] + ri(2000, 6000)) / 100) * 100);
-    rack.push({ time: `${day}T07:${String(5 + rack.length * 6).padStart(2, '0')}`, truck: t, net_gal: gal(load), base: 'NET60', origin: 'RACK_METER' });
-    storage -= load; truckGauge[t] += load - deliveredBy[t] + (day === '2026-10-28' ? 0 : ri(-60, 60));
-  }
+  for (const r of rack) storage -= tenths(r.net_gal);
+  for (const t of Object.keys(TRUCKS)) truckGauge[t] = truckClose[t] + (day === '2026-10-28' ? 0 : ri(-60, 60));
   const n20 = ri(28, 44); const n33 = ri(8, 16); const dock = n20 * 47 + n33 * 80 + ri(-5, 5);
   fills.push({ time: `${day}T16:40`, cylinders_20lb: n20, cylinders_33lb: n33, net_gal: gal(dock), base: 'NET60', origin: 'DOCK_METER' });
   storage -= dock; storage += day === '2026-10-28' ? -8200 : ri(-250, 250);
-  gaugeRows.push(g('18:30', 'STORAGE-1', storage, tClose, STORAGE_WC));
-  for (const t of Object.keys(TRUCKS)) gaugeRows.push(g('18:35', t, truckGauge[t], tClose, 3200));
+  gaugeRows.push(g('18:30', 'STORAGE-1', storage, sClose, STORAGE_WC));
+  for (const t of Object.keys(TRUCKS)) gaugeRows.push(g('18:35', t, truckGauge[t], tClose, TRUCK_WC / 10));
   if (day === '2026-10-30') { const s = gaugeRows.find((r) => r.vessel === 'STORAGE-1' && r.time.endsWith('18:30')); s.liquid_temp_f = ''; s.net_gal = ''; s.base = 'UNKNOWN'; }
   const gcols = ['time', 'vessel', 'reading_pct', 'liquid_temp_f', 'net_gal', 'base', 'origin'];
   put(`days/${day}/gauge_sheet.csv`, csv(`#source=gauge_sheet;period=${day};generated=${day}T18:40`, gcols, gaugeRows), `${day}T18:45`);

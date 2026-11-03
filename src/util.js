@@ -19,8 +19,15 @@ export function cents(s) {
 }
 
 export function mills(s) {
-  const m = String(s ?? '').trim().match(/^(\d+)\.(\d{3})$/);
-  return m ? Number(m[1]) * 1000 + Number(m[2]) : null;
+  const m = String(s ?? '').trim().match(/^(\d+)\.(\d{1,3})$/);
+  return m ? Number(m[1]) * 1000 + Number(m[2].padEnd(3, '0')) : null;
+}
+
+// A value the rule needs and cannot read: the rule (or the line it is checking) stops and says why.
+export class DataError extends Error {}
+export function need(value, what) {
+  if (value === null || value === undefined || Number.isNaN(value)) throw new DataError(what);
+  return value;
 }
 
 // gallons (tenths) x price (mills) -> cents, half up

@@ -1,0 +1,5 @@
+#source=trucks;period=reference;generated=2026-10-25T20:00
+truck,meter_serial,tank_wc_gal,max_fill_pct
+B-11,MTR-30117,3200,85
+B-12,MTR-30142,3200,85
+B-14,MTR-30163,3200,85
