@@ -153,8 +153,13 @@ export function runDay(files, day, opts = {}) {
         action: 'Get the register close (or re-send the end-of-day export); the run picks it up and the suspended checks conclude.',
         fields: { from: st.from || '', to: st.to || '', partial: fmtUsd(partial), n: String(stopped.length), period: fmtDay(day), received: sales ? fmtStamp(sales.received_at) : '' },
         calc: [['Counter sales export', sales ? `${sales.path}, ${st.from} to ${st.to}, received ${fmtStamp(sales.received_at)}` : 'not received'], ['Control trailer', sales?.trailer ? 'present' : 'none'], ['Register close', close.status === 'ok' ? 'received' : 'not received', true], ['Counter sales so far (before tax)', fmtUsd(partial)], ['Checks suspended', stopped.join(', ') || 'none', true]],
-        evidence: [{ system: 'POS (assumed export)', style: 'tape', title: 'What the POS sent', file: sales?.path || '', received_at: sales?.received_at || '', columns: ['File', 'Covers', 'Received', 'Status'],
-          rows: [{ cells: [sales?.path.split('/').pop() || 'counter sales', sales ? `${st.from} to ${st.to}` : '', sales ? fmtStamp(sales.received_at) : '', st.status], mark: 'hit' }, { cells: ['register close', '', close.status === 'ok' ? fmtStamp(chosen.pos_close.received_at) : '', close.status === 'ok' ? 'received' : 'not received'], mark: close.status === 'ok' ? null : 'ghost' }], foot: [] }],
+        evidence: [
+          ...(sales ? [{ system: 'POS (assumed export)', style: 'sheet', title: `Counter sales export, last receipts`, file: sales.path, received_at: sales.received_at, columns: ['Receipt', 'Time', 'Item', 'Amount', 'Tax', 'Tender'],
+            rows: [...sales.rows.slice(-5).map((x) => ({ cells: [x.receipt, x.time, x.description, x.amount, x.tax, x.tender] })), ...(sales.trailer ? [] : [{ cells: ['', '', 'no control trailer after this row', '', '', ''], mark: 'ghost' }])],
+            foot: [['Period in the file', `${sales.meta.period}, ${st.from} to ${st.to}`], ['Rows received', String(sales.rows.length)]] }] : []),
+          { system: 'POS (assumed export)', style: 'tape', title: 'Register close', file: close.status === 'ok' ? chosen.pos_close.path : 'pos_close.csv', received_at: close.status === 'ok' ? chosen.pos_close.received_at : '', columns: ['Field', 'Value'],
+            rows: close.status === 'ok' ? [{ cells: ['Closed', chosen.pos_close.rows[0].closed] }] : [{ cells: ['Z report', posClose === 'missing' && closeOnTime ? 'left out of this run' : 'not received by the run'], mark: 'ghost' }, { cells: ['Cash, card, receipts', 'unknown'], mark: 'ghost' }] },
+        ],
       };
     }
     const [n, s] = members[0]; const file = f(n); const label = `${SOURCES[n].system} ${SOURCES[n].label.toLowerCase()}`;
