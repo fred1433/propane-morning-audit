@@ -1,0 +1,6 @@
+#source=cage_counts;period=2026-10-29;generated=2026-10-29T18:00
+date,dealer,cage,full,empty,counted_by,ref
+2026-10-22,D-07,CG-07A,20,0,Driver 11,"Count after delivery, route C-21"
+2026-10-22,D-03,CG-03A,16,0,Driver 11,"Count after delivery, route C-21"
+2026-10-29,D-07,CG-07A,21,0,Driver 11,"Count after delivery, route C-21, stop 4"
+2026-10-29,D-03,CG-03A,16,0,Driver 11,"Count after delivery, route C-21, stop 2"

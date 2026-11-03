@@ -1,0 +1,4 @@
+#source=cargas_lease_charges;period=2026-10;generated=2026-10-30T21:00
+charge_id,date,lease,account,amount,tax
+LC-9001,2026-10-01,L-0108,C-2204,30.00,2.48
+LC-9002,2026-10-01,L-0115,C-2212,25.00,2.06

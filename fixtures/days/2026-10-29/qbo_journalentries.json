@@ -1,0 +1,59 @@
+{
+  "_export": {
+    "source": "qbo_journalentries",
+    "period": "2026-10-29",
+    "retrieved": "2026-10-30T05:28",
+    "query": "select * from JournalEntry where TxnDate = '2026-10-29'"
+  },
+  "QueryResponse": {
+    "JournalEntry": [
+      {
+        "Id": "5104",
+        "DocNumber": "GL-1029",
+        "TxnDate": "2026-10-29",
+        "PrivateNote": "Cargas GL distributions, batch GL-1029",
+        "Line": [
+          {
+            "Id": "0",
+            "Amount": 20208.56,
+            "DetailType": "JournalEntryLineDetail",
+            "JournalEntryLineDetail": {
+              "PostingType": "Debit",
+              "AccountRef": {
+                "value": "1100",
+                "name": "Accounts Receivable (A/R)"
+              }
+            }
+          },
+          {
+            "Id": "1",
+            "Amount": 14218.91,
+            "DetailType": "JournalEntryLineDetail",
+            "JournalEntryLineDetail": {
+              "PostingType": "Credit",
+              "AccountRef": {
+                "value": "4010",
+                "name": "Residential bulk propane sales"
+              }
+            }
+          },
+          {
+            "Id": "2",
+            "Amount": 5989.65,
+            "DetailType": "JournalEntryLineDetail",
+            "JournalEntryLineDetail": {
+              "PostingType": "Credit",
+              "AccountRef": {
+                "value": "4020",
+                "name": "Commercial bulk propane sales"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "startPosition": 1,
+    "maxResults": 1,
+    "totalCount": 1
+  }
+}

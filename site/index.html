@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propane morning audit, a sample on a fictional week</title>
+<meta name="description" content="A sample morning audit for a propane distributor: truck meters, Cargas exports, QuickBooks Online and POS records reconciled by tested rules, on one fictional week.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<header class="top">
+  <svg class="ridge" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 160 L0 118 L70 104 L130 110 L210 86 L260 92 L330 60 L372 70 L420 44 L470 58 L520 38 L560 50 L610 30 L660 54 L720 46 L790 74 L850 66 L920 90 L990 82 L1060 100 L1130 94 L1210 112 L1290 106 L1360 120 L1440 116 L1440 160 Z" fill="#D9CFCB"/>
+    <path d="M0 160 L0 136 L120 128 L240 134 L380 116 L470 124 L600 108 L700 120 L820 112 L960 126 L1100 120 L1240 132 L1440 128 L1440 160 Z" fill="#E6DCD6"/>
+  </svg>
+  <div class="intro">
+    <p class="fiction">Sample on fictional records. No real company, customer or figure.</p>
+    <h1>Yesterday’s tickets, deposits and cages, checked by 06:00</h1>
+    <p class="lede">A morning audit for a propane distributor, on one fictional week in El Paso. Truck meters, Cargas exports, QuickBooks Online and the POS, reconciled by tested rules. Pick a day, take the register close away, open any dossier to see its records.</p>
+  </div>
+</header>
+
+<main>
+  <section id="report" aria-label="Morning report">
+    <div class="tabs" role="tablist" aria-label="Business day" id="tabs"></div>
+    <div class="stack">
+      <article class="sheet" id="sheet" aria-live="polite"><p class="loading">Running the audit on the fictional files…</p></article>
+    </div>
+  </section>
+
+  <section id="records" aria-labelledby="records-h">
+    <div class="wrap" id="records-body"></div>
+  </section>
+
+  <section id="next" aria-labelledby="next-h">
+    <div class="wrap next-grid">
+      <div class="proposal">
+        <h2 id="next-h">Next step: one real closed day, with your accountant</h2>
+        <p>Pick a day you have already closed. In a short paid assessment, I would bring back four things:</p>
+        <ol class="deliver">
+          <li><b>Where each figure lives.</b> Which records Cargas, QuickBooks Online and the POS hold for billing, receivables, payments, counter sales and stock, and how each one can be read.</li>
+          <li><b>That day reconciled</b>, or the exact list of records that stop it from being reconciled.</li>
+          <li><b>The rules, written down with you:</b> posting deadline, tolerances, account mapping, voids, late and resent files.</li>
+          <li><b>A priced pilot plan:</b> connections, the daily run, alerts, running costs and who owns what.</li>
+        </ol>
+        <p class="caveat">Automated access to Cargas, through an API or a scheduled export, still has to be confirmed on your installation. A manual export is enough to reconcile the first day; it is not yet an automated report.</p>
+        <p class="cta"><a class="book" href="https://cal.theaipipe.com">Book 15 minutes</a> <span>to look at it together.</span></p>
+      </div>
+      <div class="side">
+        <h3>What runs every morning <span class="ex">example</span></h3>
+        <div id="journal"></div>
+        <h3>Assumptions in this sample</h3>
+        <ul class="assume">
+          <li>Assumed flow: Cargas holds tickets, billing, receivables and payments, and sends GL distributions and deposits to QuickBooks Online. To align with yours.</li>
+          <li>Export formats on the Cargas and POS side are assumed. QuickBooks records follow its public API objects (JournalEntry, Deposit).</li>
+          <li>Tickets are in net gallons at 60 °F from temperature-compensated meters. A quantity whose base is unknown stops its check.</li>
+          <li>Accrual convention. Gross margin is not calculated: the sample has no cost method.</li>
+          <li>No bank statement here: deposits are matched to QuickBooks, which is not a bank reconciliation.</li>
+          <li>Tax amounts are copied from the records as they are. Autogas and interstate tax calculation is out of scope.</li>
+          <li>Dealer cages run on consignment in this sample.</li>
+        </ul>
+        <p class="repo">Rules, fictional files, expected results and tests: <a href="https://github.com/fred1433/propane-morning-audit">github.com/fred1433/propane-morning-audit</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Built by Frederic de Lavenne de Choulot, The AI Pipe. Every name, number and record on this page is invented.</p>
+    <p><a href="https://cal.theaipipe.com">cal.theaipipe.com</a>, 15 minutes.</p>
+  </div>
+</footer>
+</body>
+</html>

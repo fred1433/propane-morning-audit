@@ -1,0 +1,4 @@
+#source=prebuy_contracts;period=reference;generated=2026-10-25T20:00
+contract,account,price_per_gal,gallons,start,end,gallons_used_before
+PB-118,R-1137,2.399,600.0,2026-09-01,2027-03-31,0.0
+PB-121,R-1027,2.449,500.0,2026-09-01,2027-03-31,0.0

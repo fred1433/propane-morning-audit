@@ -1,0 +1,39 @@
+#source=customers;period=reference;generated=2026-10-25T20:00
+account,name,type,area,price_plan
+R-1012,Residence 1012,RES,Northeast,RES-STD
+R-1019,Residence 1019,RES,Northeast,RES-STD
+R-1027,Residence 1027,RES,Upper Valley,RES-STD
+R-1031,Residence 1031,RES,Upper Valley,RES-STD
+R-1044,Residence 1044,RES,Canutillo,RES-STD
+R-1046,Residence 1046,RES,Canutillo,RES-STD
+R-1053,Residence 1053,RES,Westway,RES-STD
+R-1058,Residence 1058,RES,Anthony,RES-STD
+R-1061,Residence 1061,RES,Anthony,RES-STD
+R-1067,Residence 1067,RES,Vinton,RES-STD
+R-1072,Residence 1072,RES,Lower Valley,RES-STD
+R-1075,Residence 1075,RES,Lower Valley,RES-STD
+R-1079,Residence 1079,RES,Socorro,RES-STD
+R-1083,Residence 1083,RES,Socorro,RES-STD
+R-1088,Residence 1088,RES,Horizon City,RES-STD
+R-1091,Residence 1091,RES,Horizon City,RES-STD
+R-1096,Residence 1096,RES,Clint,RES-STD
+R-1102,Residence 1102,RES,Clint,RES-STD
+R-1108,Residence 1108,RES,Fabens,RES-STD
+R-1113,Residence 1113,RES,Fabens,RES-STD
+R-1117,Residence 1117,RES,San Elizario,RES-STD
+R-1123,Residence 1123,RES,San Elizario,RES-STD
+R-1129,Residence 1129,RES,Montana Vista,RES-STD
+R-1137,Residence 1137,RES,Montana Vista,RES-STD
+C-2201,Tres Cruces Bakery,COM,El Paso,COM-A
+C-2203,Bajada Auto Body,COM,El Paso,COM-A
+C-2204,Agave Row Kitchen,COM,El Paso,COM-C
+C-2205,Mesa Caliza Steel Works,COM,El Paso,COM-A
+C-2206,Desert Lark Greenhouse,COM,El Paso,COM-B
+C-2207,Cactus Wren Tortilleria,COM,El Paso,COM-A
+C-2208,Hueco Rock Event Hall,COM,El Paso,COM-C
+C-2209,Coyote Gulch Car Wash,COM,El Paso,COM-B
+C-2210,Ocotillo Pallet Works,COM,El Paso,COM-D
+C-2212,Loma Verde Laundry,COM,El Paso,COM-B
+D-03,Tornillo Road Fuel Stop,DEALER,El Paso County,
+D-07,Palo Blanco Grocery,DEALER,El Paso County,
+D-11,Cholla Corner Store,DEALER,El Paso County,

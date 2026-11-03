@@ -1,0 +1,8 @@
+#source=price_plans;period=reference;generated=2026-10-25T20:00
+plan,effective_from,price_per_gal
+RES-STD,2026-10-01,2.899
+RES-STD,2026-10-28,2.949
+COM-A,2026-10-01,2.459
+COM-B,2026-10-01,2.299
+COM-C,2026-10-01,2.559
+COM-D,2026-10-01,2.500

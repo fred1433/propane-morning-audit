@@ -1,0 +1,3 @@
+#source=transport_receipts;period=2026-10-28;generated=2026-10-28T18:40
+bol,time,carrier,net_gal,base,origin
+BOL-4502,2026-10-28T06:55,Transport carrier (fictional),9240.0,NET60,BOL

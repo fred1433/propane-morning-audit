@@ -1,0 +1,8 @@
+#source=processor_settlement;period=2026-10-28;generated=2026-10-29T04:25
+record,batch,ref,gross,fee,adjustment,net
+BATCH,OFC-1028,"office terminal, 3 payments",1431.75,42.42,0.00,1389.33
+ITEM,OFC-1028,P-40224,446.25,,,
+ITEM,OFC-1028,P-40225,513.50,,,
+ITEM,OFC-1028,P-40226,472.00,,,
+BATCH,CTR-1028,counter terminal R1,743.98,20.34,0.00,723.64
+ITEM,CTR-1028,Z-1028,743.98,,,

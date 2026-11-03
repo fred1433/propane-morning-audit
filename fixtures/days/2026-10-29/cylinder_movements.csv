@@ -1,0 +1,10 @@
+#source=cylinder_movements;period=2026-10-29;since=2026-10-22;generated=2026-10-29T18:00
+date,dealer,movement,qty,ref
+2026-10-23..2026-10-29,D-07,DEALER_EXCHANGE,8,Dealer sales report DSR-07-1029
+2026-10-23..2026-10-29,D-07,DEALER_SOLD_NO_RETURN,2,Dealer sales report DSR-07-1029
+2026-10-29,D-07,DELIVERED_FULL,12,"Cylinder route C-21, stop 4"
+2026-10-29,D-07,PICKED_EMPTY,8,"Cylinder route C-21, stop 4"
+2026-10-23..2026-10-29,D-03,DEALER_EXCHANGE,9,Dealer sales report DSR-03-1029
+2026-10-23..2026-10-29,D-03,DEALER_SOLD_NO_RETURN,1,Dealer sales report DSR-03-1029
+2026-10-29,D-03,DELIVERED_FULL,10,"Cylinder route C-21, stop 2"
+2026-10-29,D-03,PICKED_EMPTY,9,"Cylinder route C-21, stop 2"

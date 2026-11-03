@@ -1,0 +1,129 @@
+{
+  "_export": {
+    "source": "qbo_deposits",
+    "period": "2026-10-29",
+    "retrieved": "2026-10-30T05:28",
+    "query": "select * from Deposit where TxnDate = '2026-10-29'"
+  },
+  "QueryResponse": {
+    "Deposit": [
+      {
+        "Id": "7313",
+        "TxnDate": "2026-10-29",
+        "DocNumber": "CD-1029-CARD",
+        "PrivateNote": "Cargas deposit CD-1029-CARD",
+        "DepositToAccountRef": {
+          "value": "1010",
+          "name": "Operating bank account"
+        },
+        "TotalAmt": 970,
+        "Line": [
+          {
+            "Amount": 1000,
+            "DetailType": "DepositLineDetail",
+            "DepositLineDetail": {
+              "AccountRef": {
+                "value": "1150",
+                "name": "Cargas clearing"
+              }
+            }
+          },
+          {
+            "Amount": -30,
+            "DetailType": "DepositLineDetail",
+            "Description": "Processor fees, batch OFC-1029",
+            "DepositLineDetail": {
+              "AccountRef": {
+                "value": "6120",
+                "name": "Merchant fees"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Id": "7314",
+        "TxnDate": "2026-10-29",
+        "DocNumber": "CD-1029-CHK",
+        "PrivateNote": "Cargas deposit CD-1029-CHK",
+        "DepositToAccountRef": {
+          "value": "1010",
+          "name": "Operating bank account"
+        },
+        "TotalAmt": 1489,
+        "Line": [
+          {
+            "Amount": 1489,
+            "DetailType": "DepositLineDetail",
+            "DepositLineDetail": {
+              "AccountRef": {
+                "value": "1150",
+                "name": "Cargas clearing"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Id": "7315",
+        "TxnDate": "2026-10-29",
+        "DocNumber": "Z-1029-CASH",
+        "PrivateNote": "POS close Z-1029, cash",
+        "DepositToAccountRef": {
+          "value": "1010",
+          "name": "Operating bank account"
+        },
+        "TotalAmt": 504.7,
+        "Line": [
+          {
+            "Amount": 504.7,
+            "DetailType": "DepositLineDetail",
+            "DepositLineDetail": {
+              "AccountRef": {
+                "value": "1160",
+                "name": "POS clearing"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Id": "7316",
+        "TxnDate": "2026-10-29",
+        "DocNumber": "Z-1029-CARD",
+        "PrivateNote": "POS close Z-1029, card",
+        "DepositToAccountRef": {
+          "value": "1010",
+          "name": "Operating bank account"
+        },
+        "TotalAmt": 621.78,
+        "Line": [
+          {
+            "Amount": 639.29,
+            "DetailType": "DepositLineDetail",
+            "DepositLineDetail": {
+              "AccountRef": {
+                "value": "1160",
+                "name": "POS clearing"
+              }
+            }
+          },
+          {
+            "Amount": -17.51,
+            "DetailType": "DepositLineDetail",
+            "Description": "Processor fees, batch CTR-1029",
+            "DepositLineDetail": {
+              "AccountRef": {
+                "value": "6120",
+                "name": "Merchant fees"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "startPosition": 1,
+    "maxResults": 4,
+    "totalCount": 4
+  }
+}

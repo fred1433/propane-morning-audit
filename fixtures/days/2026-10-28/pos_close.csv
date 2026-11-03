@@ -1,0 +1,3 @@
+#source=pos_close;period=2026-10-28;generated=2026-10-28T18:06
+register,business_day,z_number,opened,closed,receipts,sales_total,tax_total,payments_on_account,tender_cash,tender_card
+R1,2026-10-28,Z-1028,07:00,18:04,32,1253.85,11.42,0.00,521.29,743.98

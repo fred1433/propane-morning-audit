@@ -1,0 +1,56 @@
+{
+  "source": "cargas_gl_batch",
+  "period": "2026-10-29",
+  "generated": "2026-10-29T21:08",
+  "batch_id": "GL-1029",
+  "transactions": [
+    88088,
+    88089,
+    88090,
+    88091,
+    88092,
+    88093,
+    88094,
+    88095,
+    88096,
+    88097,
+    88098,
+    88099,
+    88100,
+    88101,
+    88102,
+    88103,
+    88104,
+    88105,
+    88106,
+    88107,
+    88108,
+    88109,
+    88110,
+    88111,
+    88112,
+    88113,
+    88114,
+    88115
+  ],
+  "lines": [
+    {
+      "account": "1100",
+      "name": "Accounts Receivable (A/R)",
+      "debit": "20208.56",
+      "credit": "0.00"
+    },
+    {
+      "account": "4010",
+      "name": "Residential bulk propane sales",
+      "debit": "0.00",
+      "credit": "14218.91"
+    },
+    {
+      "account": "4020",
+      "name": "Commercial bulk propane sales",
+      "debit": "0.00",
+      "credit": "5989.65"
+    }
+  ]
+}

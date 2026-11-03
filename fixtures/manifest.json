@@ -1,0 +1,361 @@
+{
+  "note": "Fictional files and the time each one was received. Every name and number is invented.",
+  "files": [
+    {
+      "path": "reference/customers.csv",
+      "received_at": "2026-10-25T20:00"
+    },
+    {
+      "path": "reference/price_plans.csv",
+      "received_at": "2026-10-25T20:00"
+    },
+    {
+      "path": "reference/prebuy_contracts.csv",
+      "received_at": "2026-10-25T20:00"
+    },
+    {
+      "path": "reference/approvals.csv",
+      "received_at": "2026-10-26T16:20"
+    },
+    {
+      "path": "reference/leases.csv",
+      "received_at": "2026-10-25T20:00"
+    },
+    {
+      "path": "days/2026-10-26/meter_register.csv",
+      "received_at": "2026-10-26T18:40"
+    },
+    {
+      "path": "days/2026-10-26/cargas_routes.csv",
+      "received_at": "2026-10-26T21:05"
+    },
+    {
+      "path": "days/2026-10-26/cargas_posted.csv",
+      "received_at": "2026-10-26T21:05"
+    },
+    {
+      "path": "days/2026-10-26/cargas_gl_batch.json",
+      "received_at": "2026-10-26T21:10"
+    },
+    {
+      "path": "days/2026-10-26/qbo_journalentries.json",
+      "received_at": "2026-10-27T05:30"
+    },
+    {
+      "path": "days/2026-10-26/cargas_payments.csv",
+      "received_at": "2026-10-26T21:05"
+    },
+    {
+      "path": "days/2026-10-26/cargas_deposits.csv",
+      "received_at": "2026-10-26T21:05"
+    },
+    {
+      "path": "days/2026-10-26/pos_sales.csv",
+      "received_at": "2026-10-26T18:10"
+    },
+    {
+      "path": "days/2026-10-26/pos_close.csv",
+      "received_at": "2026-10-26T18:10"
+    },
+    {
+      "path": "days/2026-10-26/processor_settlement.csv",
+      "received_at": "2026-10-27T04:30"
+    },
+    {
+      "path": "days/2026-10-26/qbo_deposits.json",
+      "received_at": "2026-10-27T05:30"
+    },
+    {
+      "path": "days/2026-10-26/gauge_sheet.csv",
+      "received_at": "2026-10-26T18:45"
+    },
+    {
+      "path": "days/2026-10-26/transport_receipts.csv",
+      "received_at": "2026-10-26T18:45"
+    },
+    {
+      "path": "days/2026-10-26/loading_rack.csv",
+      "received_at": "2026-10-26T18:45"
+    },
+    {
+      "path": "days/2026-10-26/dock_fills.csv",
+      "received_at": "2026-10-26T18:45"
+    },
+    {
+      "path": "days/2026-10-26/cargas_lease_charges.csv",
+      "received_at": "2026-10-26T21:05"
+    },
+    {
+      "path": "days/2026-10-27/meter_register.csv",
+      "received_at": "2026-10-27T18:40"
+    },
+    {
+      "path": "days/2026-10-27/cargas_routes.csv",
+      "received_at": "2026-10-27T21:05"
+    },
+    {
+      "path": "days/2026-10-27/cargas_posted.csv",
+      "received_at": "2026-10-27T21:05"
+    },
+    {
+      "path": "days/2026-10-27/cargas_posted (1).csv",
+      "received_at": "2026-10-28T05:41"
+    },
+    {
+      "path": "days/2026-10-27/cargas_gl_batch.json",
+      "received_at": "2026-10-27T21:10"
+    },
+    {
+      "path": "days/2026-10-27/qbo_journalentries.json",
+      "received_at": "2026-10-28T05:30"
+    },
+    {
+      "path": "days/2026-10-27/cargas_payments.csv",
+      "received_at": "2026-10-27T21:05"
+    },
+    {
+      "path": "days/2026-10-27/cargas_deposits.csv",
+      "received_at": "2026-10-27T21:05"
+    },
+    {
+      "path": "days/2026-10-27/pos_sales.csv",
+      "received_at": "2026-10-27T18:10"
+    },
+    {
+      "path": "days/2026-10-27/pos_close.csv",
+      "received_at": "2026-10-27T18:10"
+    },
+    {
+      "path": "days/2026-10-27/processor_settlement.csv",
+      "received_at": "2026-10-28T04:30"
+    },
+    {
+      "path": "days/2026-10-27/qbo_deposits.json",
+      "received_at": "2026-10-28T05:30"
+    },
+    {
+      "path": "days/2026-10-27/gauge_sheet.csv",
+      "received_at": "2026-10-27T18:45"
+    },
+    {
+      "path": "days/2026-10-27/transport_receipts.csv",
+      "received_at": "2026-10-27T18:45"
+    },
+    {
+      "path": "days/2026-10-27/loading_rack.csv",
+      "received_at": "2026-10-27T18:45"
+    },
+    {
+      "path": "days/2026-10-27/dock_fills.csv",
+      "received_at": "2026-10-27T18:45"
+    },
+    {
+      "path": "days/2026-10-27/cargas_lease_charges.csv",
+      "received_at": "2026-10-27T21:05"
+    },
+    {
+      "path": "days/2026-10-28/meter_register.csv",
+      "received_at": "2026-10-28T18:40"
+    },
+    {
+      "path": "days/2026-10-28/cargas_routes.csv",
+      "received_at": "2026-10-28T21:05"
+    },
+    {
+      "path": "days/2026-10-28/cargas_posted.csv",
+      "received_at": "2026-10-28T21:05"
+    },
+    {
+      "path": "days/2026-10-28/cargas_gl_batch.json",
+      "received_at": "2026-10-28T21:10"
+    },
+    {
+      "path": "days/2026-10-28/qbo_journalentries.json",
+      "received_at": "2026-10-29T05:30"
+    },
+    {
+      "path": "days/2026-10-28/cargas_payments.csv",
+      "received_at": "2026-10-28T21:05"
+    },
+    {
+      "path": "days/2026-10-28/cargas_deposits.csv",
+      "received_at": "2026-10-29T05:10"
+    },
+    {
+      "path": "days/2026-10-28/pos_sales.csv",
+      "received_at": "2026-10-28T18:10"
+    },
+    {
+      "path": "days/2026-10-28/pos_close.csv",
+      "received_at": "2026-10-28T18:10"
+    },
+    {
+      "path": "days/2026-10-28/processor_settlement.csv",
+      "received_at": "2026-10-29T04:30"
+    },
+    {
+      "path": "days/2026-10-28/qbo_deposits.json",
+      "received_at": "2026-10-29T05:30"
+    },
+    {
+      "path": "days/2026-10-28/gauge_sheet.csv",
+      "received_at": "2026-10-28T18:45"
+    },
+    {
+      "path": "days/2026-10-28/transport_receipts.csv",
+      "received_at": "2026-10-28T18:45"
+    },
+    {
+      "path": "days/2026-10-28/loading_rack.csv",
+      "received_at": "2026-10-28T18:45"
+    },
+    {
+      "path": "days/2026-10-28/dock_fills.csv",
+      "received_at": "2026-10-28T18:45"
+    },
+    {
+      "path": "days/2026-10-28/cargas_lease_charges.csv",
+      "received_at": "2026-10-28T21:05"
+    },
+    {
+      "path": "days/2026-10-29/meter_register.csv",
+      "received_at": "2026-10-29T18:40"
+    },
+    {
+      "path": "days/2026-10-29/cargas_routes.csv",
+      "received_at": "2026-10-29T21:05"
+    },
+    {
+      "path": "days/2026-10-29/cargas_posted.csv",
+      "received_at": "2026-10-29T21:05"
+    },
+    {
+      "path": "days/2026-10-29/cargas_gl_batch.json",
+      "received_at": "2026-10-29T21:10"
+    },
+    {
+      "path": "days/2026-10-29/qbo_journalentries.json",
+      "received_at": "2026-10-30T05:30"
+    },
+    {
+      "path": "days/2026-10-29/cargas_payments.csv",
+      "received_at": "2026-10-29T21:05"
+    },
+    {
+      "path": "days/2026-10-29/cargas_deposits.csv",
+      "received_at": "2026-10-29T21:05"
+    },
+    {
+      "path": "days/2026-10-29/pos_sales_intraday.csv",
+      "received_at": "2026-10-29T13:15"
+    },
+    {
+      "path": "days/2026-10-29/pos_sales.csv",
+      "received_at": "2026-10-30T09:40"
+    },
+    {
+      "path": "days/2026-10-29/pos_close.csv",
+      "received_at": "2026-10-30T09:40"
+    },
+    {
+      "path": "days/2026-10-29/processor_settlement.csv",
+      "received_at": "2026-10-30T04:30"
+    },
+    {
+      "path": "days/2026-10-29/qbo_deposits.json",
+      "received_at": "2026-10-30T05:30"
+    },
+    {
+      "path": "days/2026-10-29/gauge_sheet.csv",
+      "received_at": "2026-10-29T18:45"
+    },
+    {
+      "path": "days/2026-10-29/transport_receipts.csv",
+      "received_at": "2026-10-29T18:45"
+    },
+    {
+      "path": "days/2026-10-29/loading_rack.csv",
+      "received_at": "2026-10-29T18:45"
+    },
+    {
+      "path": "days/2026-10-29/dock_fills.csv",
+      "received_at": "2026-10-29T18:45"
+    },
+    {
+      "path": "days/2026-10-29/cargas_lease_charges.csv",
+      "received_at": "2026-10-29T21:05"
+    },
+    {
+      "path": "days/2026-10-29/cylinder_movements.csv",
+      "received_at": "2026-10-29T18:05"
+    },
+    {
+      "path": "days/2026-10-29/cage_counts.csv",
+      "received_at": "2026-10-29T18:05"
+    },
+    {
+      "path": "days/2026-10-30/meter_register.csv",
+      "received_at": "2026-10-30T18:40"
+    },
+    {
+      "path": "days/2026-10-30/cargas_routes.csv",
+      "received_at": "2026-10-30T21:05"
+    },
+    {
+      "path": "days/2026-10-30/cargas_posted.csv",
+      "received_at": "2026-10-30T21:05"
+    },
+    {
+      "path": "days/2026-10-30/cargas_gl_batch.json",
+      "received_at": "2026-10-30T21:10"
+    },
+    {
+      "path": "days/2026-10-30/qbo_journalentries.json",
+      "received_at": "2026-10-31T05:30"
+    },
+    {
+      "path": "days/2026-10-30/cargas_payments.csv",
+      "received_at": "2026-10-30T21:05"
+    },
+    {
+      "path": "days/2026-10-30/cargas_deposits.csv",
+      "received_at": "2026-10-30T21:05"
+    },
+    {
+      "path": "days/2026-10-30/pos_sales.csv",
+      "received_at": "2026-10-30T18:10"
+    },
+    {
+      "path": "days/2026-10-30/pos_close.csv",
+      "received_at": "2026-10-30T18:10"
+    },
+    {
+      "path": "days/2026-10-30/processor_settlement.csv",
+      "received_at": "2026-10-31T04:30"
+    },
+    {
+      "path": "days/2026-10-30/qbo_deposits.json",
+      "received_at": "2026-10-31T05:30"
+    },
+    {
+      "path": "days/2026-10-30/gauge_sheet.csv",
+      "received_at": "2026-10-30T18:45"
+    },
+    {
+      "path": "days/2026-10-30/transport_receipts.csv",
+      "received_at": "2026-10-30T18:45"
+    },
+    {
+      "path": "days/2026-10-30/loading_rack.csv",
+      "received_at": "2026-10-30T18:45"
+    },
+    {
+      "path": "days/2026-10-30/dock_fills.csv",
+      "received_at": "2026-10-30T18:45"
+    },
+    {
+      "path": "days/2026-10-30/cargas_lease_charges.csv",
+      "received_at": "2026-10-30T21:05"
+    }
+  ]
+}

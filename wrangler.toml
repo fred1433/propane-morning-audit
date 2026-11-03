@@ -1,0 +1,15 @@
+# Static page served under theaipipe.com/demos/propane-morning-audit/
+name = "propane-morning-audit-demo"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+routes = [
+  { pattern = "theaipipe.com/demos/propane-morning-audit", zone_name = "theaipipe.com" },
+  { pattern = "theaipipe.com/demos/propane-morning-audit/*", zone_name = "theaipipe.com" }
+]
+
+[assets]
+directory = "./site"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+run_worker_first = true

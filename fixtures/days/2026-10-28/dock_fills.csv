@@ -1,0 +1,3 @@
+#source=dock_fills;period=2026-10-28;generated=2026-10-28T18:40
+time,cylinders_20lb,cylinders_33lb,net_gal,base,origin
+2026-10-28T16:40,29,13,240.3,NET60,DOCK_METER

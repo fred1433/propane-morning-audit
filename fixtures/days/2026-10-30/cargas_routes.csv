@@ -1,0 +1,5 @@
+#source=cargas_routes;period=2026-10-30;generated=2026-10-30T21:00
+route_id,truck,driver,status,opened_at,closed_at
+RT-11-1030,B-11,Driver 3,CLOSED,2026-10-30T07:20,2026-10-30T17:18
+RT-12-1030,B-12,Driver 5,CLOSED,2026-10-30T07:20,2026-10-30T17:42
+RT-14-1030,B-14,Driver 8,CLOSED,2026-10-30T07:20,2026-10-30T17:31

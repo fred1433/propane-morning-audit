@@ -1,0 +1,18 @@
+{
+  "note": "Example only: what the run journal and the missed-run alert would look like in a pilot. Times are fictional.",
+  "runs": [
+    { "for": "2026-10-26", "started": "2026-10-27T06:00:03", "finished": "2026-10-27T06:00:41", "result": "report sent" },
+    { "for": "2026-10-27", "started": "2026-10-28T06:00:02", "finished": "2026-10-28T06:00:39", "result": "report sent, 1 duplicate file ignored" },
+    { "for": "2026-10-28", "started": "2026-10-29T06:00:02", "finished": "2026-10-29T06:00:44", "result": "report sent, 1 data alert (stale deposits file)" },
+    { "for": "2026-10-29", "started": "2026-10-30T06:00:03", "finished": "2026-10-30T06:00:40", "result": "report sent, 1 data alert (register close missing)" },
+    { "for": "2026-10-29", "started": "2026-10-30T09:45:00", "finished": "2026-10-30T09:45:36", "result": "re-run after the register close arrived, report re-sent" },
+    { "for": "2026-10-30", "started": "2026-10-31T06:00:02", "finished": "2026-10-31T06:00:42", "result": "report sent, 2 data alerts" },
+    { "for": "2026-10-31", "started": "", "finished": "", "result": "no run recorded" }
+  ],
+  "alert": {
+    "sent": "2026-11-01T06:30",
+    "by": "a watchdog that runs apart from the audit job",
+    "subject": "Morning audit for Sat 31 Oct not produced by 06:30",
+    "body": "No successful run since Sat 31 Oct, 06:00:42. The audit job did not start, so it could not raise this alert itself. Check the runner host, then the overnight export drop. Reports already sent are unchanged."
+  }
+}

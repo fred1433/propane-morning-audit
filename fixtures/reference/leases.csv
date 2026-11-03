@@ -1,0 +1,7 @@
+#source=leases;period=reference;generated=2026-10-25T20:00
+lease,tank,tank_wc_gal,owner,account,site,start,end,rent,frequency,due_day,cycle_close_day,next_due,waiver
+L-0104,T-3307,500,Sample Propane Co.,C-2206,Greenhouse yard,2025-01-15,2027-01-14,25.00,MONTHLY,1,28,,Rent waived while annual purchases reach 1000 gal; confirmed 2026-01-10
+L-0108,T-4410,1000,Sample Propane Co.,C-2204,"Kitchen, rear lot",2025-06-01,2027-05-31,30.00,MONTHLY,1,28,,
+L-0112,T-5042,500,Sample Propane Co.,C-2207,"Tortilleria, north wall",2026-04-01,2028-03-31,25.00,MONTHLY,1,28,,
+L-0115,T-5108,500,Sample Propane Co.,C-2212,"Laundry, side yard",2025-11-01,2027-10-31,25.00,MONTHLY,1,28,,
+L-0119,T-6110,250,Sample Propane Co.,R-1046,"Residence, backyard",2026-01-15,2029-01-14,96.00,ANNUAL,15,,2027-01-15,

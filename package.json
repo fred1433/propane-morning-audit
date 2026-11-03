@@ -1,0 +1,15 @@
+{
+  "name": "propane-morning-audit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample morning audit for a propane distributor, on one fictional week",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "fixtures": "node scripts/make-fixtures.mjs",
+    "build": "node scripts/build-site.mjs",
+    "test": "node --test tests/",
+    "check": "node scripts/make-fixtures.mjs && git diff --exit-code -- fixtures && node --test tests/"
+  },
+  "license": "MIT"
+}

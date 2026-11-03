@@ -1,0 +1,3 @@
+#source=approvals;period=reference;generated=2026-10-26T16:20
+approval,account,ticket_no,price_per_gal,approved_by,approved_on
+AP-311,C-2205,7696,2.399,Operations manager,2026-10-26
